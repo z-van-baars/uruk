@@ -1,8 +1,11 @@
-extends Sprite
+extends Node2D
 var pos = Vector2(0, 0)
 var selected_tile
+var build_mode = false
 
 func _process(delta):
+	if build_mode == false:
+		return
 	pos = get_viewport().get_mouse_position()
 	pos = get_viewport().get_canvas_transform().xform_inv(pos)
 	
@@ -17,3 +20,8 @@ func _input(event):
 
 func get_selected_tile():
 	return selected_tile
+
+
+func _on_toggle_build_mode():
+	build_mode = !build_mode
+	visible = !visible

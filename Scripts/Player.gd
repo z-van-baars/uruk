@@ -2,16 +2,15 @@ extends Node2D
 
 signal update_dock
 signal update_resource_bar
+signal toggle_build_mode
+signal update_maps
 
 var worldgen
 
 var building_to_construct = 0
 
-var scroll_x = 0
-var scroll_y = 0
-var scroll_speed = 200
-
 var build_mode = false
+var to_build = null
 
 var labor = 100
 var grain = 0
@@ -27,29 +26,20 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("ui_w"):
-		scroll_y -= scroll_speed
-	elif event.is_action_pressed("ui_a"):
-		scroll_x -= scroll_speed
-	elif event.is_action_pressed("ui_d"):
-		scroll_x += scroll_speed
-	elif event.is_action_pressed("ui_s"):
-		scroll_y += scroll_speed
-	elif event.is_action_released("ui_w"):
-		scroll_y += scroll_speed
-	elif event.is_action_released("ui_s"):
-		scroll_y -= scroll_speed
-	elif event.is_action_released("ui_a"):
-		scroll_x += scroll_speed
-	elif event.is_action_released("ui_d"):
-		scroll_x -= scroll_speed
-	elif event.is_action_pressed("ui_b"):
+	if $Camera2D.scrolling == true:
+		return
+	if event.is_action_pressed("ui_b"):
 		build_mode = !build_mode
 		emit_signal("update_dock")
+		emit_signal("toggle_build_mode")
 	elif event.is_action_pressed("left_click"):
-		if build_mode == true:
-			var selected_tile = get_tree().root.get_node("Main/SelectionBox").get_selected_tile()
-			worldgen.buildings[selected_tile.y][selected_tile.x] = building_to_construct
+		if build_mode == false:
+			return
+		var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
+		worldgen.buildings[selected_tile.y][selected_tile.x] = to_build
+		get_tree().root.get_node("Main/WorldGen/BuildingTileMap").set_cellv(selected_tile, to_build)
+		emit_signal("update_maps")
+
 	elif event.is_action_pressed("ui_up"):
 		if build_mode == true:
 			if building_to_construct == 0:
@@ -65,8 +55,3 @@ func _input(event):
 				building_to_construct += 1
 			emit_signal("update_dock")
 
-func _process(delta):
-	if scroll_x != 0:
-		$Camera2D.position.x += scroll_x * delta
-	if scroll_y != 0:
-		$Camera2D.position.y += scroll_y * delta
