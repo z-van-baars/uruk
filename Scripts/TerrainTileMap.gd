@@ -1,7 +1,12 @@
 extends TileMap
 
+var terrain = []
 
-func paint_terrain_map(terrain):
+func load_map():
+	terrain = get_tree().root.get_node("Main/WorldGen").terrain
+	
+
+func paint_terrain():
 	clear()
 	var y_index = 0
 	for row in terrain:

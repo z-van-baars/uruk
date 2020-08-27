@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/farm.png-866d3316b8c46919119c733cfa965fbc.stex"
+path="res://.import/huts_3.png-8c7a8331828c39c67ecf493ff0c267da.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/farm.png"
-dest_files=[ "res://.import/farm.png-866d3316b8c46919119c733cfa965fbc.stex" ]
+source_file="res://Assets/buildings/huts_3.png"
+dest_files=[ "res://.import/huts_3.png-8c7a8331828c39c67ecf493ff0c267da.stex" ]
 
 [params]
 

@@ -4,8 +4,12 @@ var terrain = []
 var resources = []
 var buildings = []
 var zones = []
+var width
+var height
 
 func gen_new(dimensions):
+	width = dimensions.x
+	height = dimensions.y
 	for y in range(dimensions.y):
 		var terrain_row = []
 		var resource_row = []

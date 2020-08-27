@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/huts_4.png-53577e5fb151dd52be51391fdd803cc8.stex"
+path="res://.import/copper.png-ea07a1d02a36664adaa776fdf151e098.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/huts_4.png"
-dest_files=[ "res://.import/huts_4.png-53577e5fb151dd52be51391fdd803cc8.stex" ]
+source_file="res://Assets/icons/copper.png"
+dest_files=[ "res://.import/copper.png-ea07a1d02a36664adaa776fdf151e098.stex" ]
 
 [params]
 

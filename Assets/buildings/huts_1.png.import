@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trees_1.png-eea6ce44c7b79db7ce284ac0388bf368.stex"
+path="res://.import/huts_1.png-b261972b10c2c1af4771e5b8be4d1d3d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/trees_1.png"
-dest_files=[ "res://.import/trees_1.png-eea6ce44c7b79db7ce284ac0388bf368.stex" ]
+source_file="res://Assets/buildings/huts_1.png"
+dest_files=[ "res://.import/huts_1.png-b261972b10c2c1af4771e5b8be4d1d3d.stex" ]
 
 [params]
 

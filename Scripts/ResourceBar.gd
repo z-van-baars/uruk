@@ -1,12 +1,29 @@
 extends ColorRect
+signal mouse_entered_menu
+signal mouse_exited_menu
 var player
 
 func _ready():
 	player = get_tree().root.get_node("Main/Player")
-	update_labels()
+	update()
 
-func update_labels():
-	$Grain.text = "Grain - " + str(player.grain)
+func update():
+	$Grain.text = str(player.grain)
+	$Wood.text = str(player.wood)
+	$Stone.text = str(player.stone)
+	$Labor.text = str(player.labor)
+	$Copper.text = str(player.copper)
+	$Gold.text = str(player.gold)
+	$Tin.text = str(player.tin)
+	$Bronze.text = str(player.bronze)
 
 func _on_Player_update_resource_bar():
-	update_labels()
+	update()
+
+
+func _on_ResourceBar_mouse_entered():
+	emit_signal("mouse_entered_menu")
+
+
+func _on_ResourceBar_mouse_exited():
+	emit_signal("mouse_exited_menu")
