@@ -8,6 +8,7 @@ func _ready():
 	$WorldGen/TerrainTileMap.paint_terrain()
 	$WorldGen/ZoneTileMap.load_map()
 	$WorldGen/ZoneTileMap.paint_zones()
+	$WorldGen/ZonePreviewMap.clear()
 	$WorldGen/ResourceTileMap.load_map()
 	$WorldGen/ResourceTileMap.paint_resources()
 	$WorldGen/BuildingTileMap.load_map()

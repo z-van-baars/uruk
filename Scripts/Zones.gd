@@ -42,7 +42,7 @@ var zone_tiles = {
 	"noble housing": 2}
 
 func _ready():
-	zone_tilemap = get_tree().root.get_node("Main/WorldGen/ZoneTilemap")
+	zone_tilemap = get_tree().root.get_node("Main/WorldGen/ZoneTileMap")
 
 func get_cost(zone_type, zone_start, zone_end):
 	var zone_size = (zone_end - zone_start).abs()
@@ -54,5 +54,8 @@ func get_cost(zone_type, zone_start, zone_end):
 
 
 func set_zone(zone_tiles, zone_type):
+	print("setting zone")
+	print(zone_tiles)
+	print(zone_type)
 	for tile in zone_tiles:
 		zone_tilemap.set_cellv(tile, zone_type)

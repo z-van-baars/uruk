@@ -33,17 +33,17 @@ func _on_SlumsButton_pressed():
 
 func _on_ArtisanButton_pressed():
 	enable_zoning_mode()
-	player.to_zone(2)
+	player.to_zone = 2
 	selection_box.set_zone(2)
 
 func _on_ArtisanHousingButton_pressed():
 	enable_zoning_mode()
-	player.to_zone(3)
+	player.to_zone = 3
 	selection_box.set_zone(3)
 
 func _on_NobleHousingButton_pressed():
 	enable_zoning_mode()
-	player.to_zone(4)
+	player.to_zone = 4
 	selection_box.set_zone(4)
 
 func _on_ZonesButton_pressed():

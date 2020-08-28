@@ -121,22 +121,23 @@ func distance(a1: float, b1: float, x1: float, y1: float):
 	return sqrt((a2 * a2) + (b2 * b2))
 
 func get_tiles_in_zone(zone_start, zone_end):
-	var top_left = Vector2.ZERO
-	var bottom_right = Vector2.ZERO
-	if zone_start.x <= zone_end.x and zone_start.y >= zone_end.y:
-		top_left = zone_start
-		bottom_right = zone_end
-	else:
-		top_left = zone_end
-		bottom_right = zone_start
-		
+	var leftmost = zone_start.x
+	var topmost = zone_start.y
+	var rightmost = zone_end.x
+	var bottommost = zone_end.y
+	if zone_start.x > zone_end.x:
+		leftmost = zone_end.x
+		rightmost = zone_start.x
+	if zone_start.y > zone_end.y:
+		topmost = zone_end.y
+		bottommost = zone_start.y
 	var all_tiles = []
-	var x_index = top_left.x
-	var y_index = top_left.y
+	var x_index = leftmost
+	var y_index = topmost
 
-	for y in range(bottom_right.y - top_left.y):
-		x_index = top_left.x
-		for x in range(bottom_right.x - top_left.x):
+	for y in range(bottommost - topmost + 1):
+		x_index = leftmost
+		for x in range(rightmost - leftmost + 1):
 			all_tiles.append(Vector2(x_index, y_index))
 			x_index += 1
 		y_index += 1

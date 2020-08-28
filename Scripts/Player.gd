@@ -43,6 +43,16 @@ func _on_mouse_entered_menu():
 
 func _on_mouse_exited_menu():
 	mouse_in_menu = false
+	
+func _process(delta):
+	if dragging_zone == true:
+		var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
+		if selected_tile.x == zone_end.x and selected_tile.y == zone_end.y: return
+		print(selected_tile)
+		print(zone_end)
+		zone_end = selected_tile
+		var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
+		zone_preview_map.reset_preview_zone(zone_tiles, to_zone)
 
 func _input(event):
 	if $Camera2D.scrolling == true:
@@ -58,6 +68,7 @@ func _input(event):
 		if build_mode == false and zoning_mode == true:
 			var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
 			zone_start = selected_tile
+			zone_end = selected_tile
 			dragging_zone = true
 			emit_signal("update_maps")
 		elif build_mode == true and zoning_mode == false:
@@ -74,10 +85,9 @@ func _input(event):
 			dragging_zone = false
 			zone_build()
 			emit_signal("update_maps")
+			zone_preview_map.clear()
 		
-	if event is InputEventMouseMotion and dragging_zone:
-		var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
-		zone_preview_map.reset_preview_zone(zone_tiles, to_zone)
+
 func check_cost(zone_cost):
 	return true
 

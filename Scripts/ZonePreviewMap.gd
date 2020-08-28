@@ -15,6 +15,7 @@ func load_map():
 
 func reset_preview_zone(zone_tiles, zone_type):
 	clear()
+	print("previewing zone")
 	print(zone_tiles)
 	print(zone_type)
 	for tile in zone_tiles:

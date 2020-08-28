@@ -146,7 +146,7 @@
 5/shapes = [  ]
 5/z_index = 0
 
-[sub_resource type="TileSet" id=4]
+[sub_resource type="TileSet" id=3]
 0/name = "copper_1.png 0"
 0/texture = ExtResource( 14 )
 0/tex_offset = Vector2( 0, 0 )
@@ -190,7 +190,7 @@
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=4]
 0/name = "huts_5.png 0"
 0/texture = ExtResource( 18 )
 0/tex_offset = Vector2( 0, 0 )
@@ -352,7 +352,7 @@ texture = ExtResource( 31 )
 
 [node name="ResourceTileMap" type="TileMap" parent="WorldGen"]
 mode = 1
-tile_set = SubResource( 4 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 64, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 2, 0 )
@@ -360,7 +360,7 @@ script = ExtResource( 9 )
 
 [node name="BuildingTileMap" type="TileMap" parent="WorldGen"]
 mode = 1
-tile_set = SubResource( 3 )
+tile_set = SubResource( 4 )
 cell_size = Vector2( 64, 32 )
 format = 1
 script = ExtResource( 8 )
