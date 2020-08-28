@@ -11,6 +11,8 @@ var worldgen
 var tools
 var zones
 var zone_preview_map
+var selection_box
+var cost_box
 
 var building_to_construct = 0
 
@@ -23,20 +25,24 @@ var zone_start = Vector2.ZERO
 var zone_end = Vector2.ZERO
 var dragging_zone = false
 
-var labor = 100
-var grain = 0
-var wood = 100
-var stone = 0
-var copper = 0
-var tin = 0
-var bronze = 0
-var gold = 0
+
+var stockpile = {
+	"labor": 100,
+	"grain": 0,
+	"wood": 100,
+	"stone": 0,
+	"copper": 0,
+	"tin": 0,
+	"bronze": 0,
+	"gold": 0}
 
 func _ready():
 	worldgen = get_tree().root.get_node("Main/WorldGen")
 	tools = get_tree().root.get_node("Main/Tools")
 	zones = get_tree().root.get_node("Main/Zones")
 	zone_preview_map = get_tree().root.get_node("Main/WorldGen/ZonePreviewMap")
+	selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
+	cost_box = get_tree().root.get_node("Main/CostBox")
 
 func _on_mouse_entered_menu():
 	mouse_in_menu = true
@@ -45,14 +51,13 @@ func _on_mouse_exited_menu():
 	mouse_in_menu = false
 	
 func _process(delta):
-	if dragging_zone == true:
+	if dragging_zone == true and to_zone != null:
 		var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
 		if selected_tile.x == zone_end.x and selected_tile.y == zone_end.y: return
-		print(selected_tile)
-		print(zone_end)
 		zone_end = selected_tile
 		var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
 		zone_preview_map.reset_preview_zone(zone_tiles, to_zone)
+		cost_box.set_cost_label(zones.get_cost(to_zone, zone_start, zone_end))
 
 func _input(event):
 	if $Camera2D.scrolling == true:
@@ -70,6 +75,7 @@ func _input(event):
 			zone_start = selected_tile
 			zone_end = selected_tile
 			dragging_zone = true
+			cost_box.set_cost_label(zones.get_cost(to_zone, zone_start, zone_end))
 			emit_signal("update_maps")
 		elif build_mode == true and zoning_mode == false:
 			var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
@@ -86,6 +92,7 @@ func _input(event):
 			zone_build()
 			emit_signal("update_maps")
 			zone_preview_map.clear()
+			cost_box.set_cost_label(zones.get_cost(to_zone, zone_end, zone_end))
 		
 
 func check_cost(zone_cost):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -43,6 +43,10 @@
 [ext_resource path="res://Assets/icons/copper.png" type="Texture" id=41]
 [ext_resource path="res://Scripts/Zones.gd" type="Script" id=42]
 [ext_resource path="res://Scripts/ZonePreviewMap.gd" type="Script" id=43]
+[ext_resource path="res://Assets/zones/de_zone.png" type="Texture" id=44]
+[ext_resource path="res://Fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=45]
+[ext_resource path="res://Scripts/UI/CostBox.gd" type="Script" id=46]
+[ext_resource path="res://Scripts/Demand.gd" type="Script" id=47]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_1.png 0"
@@ -145,6 +149,20 @@
 5/shape_one_way_margin = 0.0
 5/shapes = [  ]
 5/z_index = 0
+6/name = "de_zone.png 6"
+6/texture = ExtResource( 44 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 64, 32 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
 
 [sub_resource type="TileSet" id=3]
 0/name = "copper_1.png 0"
@@ -276,6 +294,10 @@
 5/shapes = [  ]
 5/z_index = 0
 
+[sub_resource type="DynamicFont" id=5]
+size = 14
+font_data = ExtResource( 45 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
 
@@ -284,6 +306,9 @@ script = ExtResource( 32 )
 
 [node name="Zones" type="Node2D" parent="."]
 script = ExtResource( 42 )
+
+[node name="Demand" type="Node2D" parent="."]
+script = ExtResource( 47 )
 
 [node name="WorldGen" type="Node2D" parent="."]
 script = ExtResource( 1 )
@@ -297,12 +322,20 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 script = ExtResource( 5 )
 
 [node name="ZoneTileMap" type="TileMap" parent="WorldGen"]
+visible = false
 mode = 1
 tile_set = SubResource( 2 )
 cell_size = Vector2( 64, 32 )
 format = 1
 tile_data = PoolIntArray( 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 65538, 5, 0, 65539, 5, 0, 65540, 5, 0, 65541, 5, 0, 131074, 3, 0, 131075, 3, 0, 131076, 3, 0, 131077, 3, 0, 131078, 3, 0, 131079, 3, 0, 196610, 3, 0, 196611, 3, 0, 196612, 3, 0, 196613, 3, 0, 196614, 3, 0, 196615, 3, 0, 196617, 4, 0, 262146, 3, 0, 262147, 3, 0, 262148, 3, 0, 262149, 3, 0, 262150, 3, 0, 262151, 3, 0, 262153, 4, 0, 327682, 3, 0, 327683, 3, 0, 327684, 3, 0, 327685, 3, 0, 327686, 3, 0, 327687, 3, 0, 327689, 4, 0, 393218, 3, 0, 393219, 3, 0, 393220, 3, 0, 393221, 3, 0, 393222, 3, 0, 393223, 3, 0, 393225, 4, 0, 458754, 2, 0, 458755, 2, 0, 458756, 2, 0, 458757, 2, 0, 458758, 2, 0, 458759, 2, 0, 458761, 4, 0, 524290, 2, 0, 524291, 2, 0, 524292, 2, 0, 524293, 2, 0, 524294, 2, 0, 524295, 2, 0, 524297, 4, 0, 589826, 2, 0, 589827, 2, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589831, 2, 0 )
 script = ExtResource( 23 )
+
+[node name="UndevelopedZoneTileMap" type="TileMap" parent="WorldGen"]
+mode = 1
+tile_set = SubResource( 2 )
+cell_size = Vector2( 64, 32 )
+format = 1
+tile_data = PoolIntArray( 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 65538, 5, 0, 65539, 5, 0, 65540, 5, 0, 65541, 5, 0, 131074, 3, 0, 131075, 3, 0, 131076, 3, 0, 131077, 3, 0, 131078, 3, 0, 131079, 3, 0, 196610, 3, 0, 196611, 3, 0, 196612, 3, 0, 196613, 3, 0, 196614, 3, 0, 196615, 3, 0, 196617, 4, 0, 262146, 3, 0, 262147, 3, 0, 262148, 3, 0, 262149, 3, 0, 262150, 3, 0, 262151, 3, 0, 262153, 4, 0, 327682, 3, 0, 327683, 3, 0, 327684, 3, 0, 327685, 3, 0, 327686, 3, 0, 327687, 3, 0, 327689, 4, 0, 393218, 3, 0, 393219, 3, 0, 393220, 3, 0, 393221, 3, 0, 393222, 3, 0, 393223, 3, 0, 393225, 4, 0, 458754, 2, 0, 458755, 2, 0, 458756, 2, 0, 458757, 2, 0, 458758, 2, 0, 458759, 2, 0, 458761, 4, 0, 524290, 2, 0, 524291, 2, 0, 524292, 2, 0, 524293, 2, 0, 524294, 2, 0, 524295, 2, 0, 524297, 4, 0, 589826, 2, 0, 589827, 2, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589831, 2, 0 )
 
 [node name="ZonePreviewMap" type="TileMap" parent="WorldGen"]
 mode = 1
@@ -313,42 +346,51 @@ tile_data = PoolIntArray( 1, 5, 0, 2, 5, 0, 3, 5, 0, 4, 5, 0, 5, 5, 0, 6, 5, 0, 
 script = ExtResource( 43 )
 
 [node name="SelectionBox" type="Node2D" parent="WorldGen"]
-visible = false
+position = Vector2( -200, -200 )
 script = ExtResource( 6 )
 
-[node name="Blank" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="ZoneSprites" type="Node2D" parent="WorldGen/SelectionBox"]
+
+[node name="Blank" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 7 )
 
-[node name="Farmland" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="Farmland" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 25 )
 
-[node name="Slums" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="Slums" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 29 )
 
-[node name="Artisan" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="Artisan" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 24 )
 
-[node name="ArtisanHousing" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="ArtisanHousing" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 27 )
 
-[node name="NobleHousing" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="NobleHousing" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.3596 )
 texture = ExtResource( 28 )
 
-[node name="Bulldoze" type="Sprite" parent="WorldGen/SelectionBox"]
+[node name="Bulldoze" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
 visible = false
 position = Vector2( 0, 16.5272 )
 texture = ExtResource( 31 )
+
+[node name="Dezone" type="Sprite" parent="WorldGen/SelectionBox/ZoneSprites"]
+visible = false
+position = Vector2( 0, 16 )
+texture = ExtResource( 44 )
+
+[node name="BuildingSprites" type="Node2D" parent="WorldGen/SelectionBox"]
 
 [node name="ResourceTileMap" type="TileMap" parent="WorldGen"]
 mode = 1
@@ -367,6 +409,35 @@ script = ExtResource( 8 )
 
 [node name="Buildings" type="Node2D" parent="."]
 script = ExtResource( 12 )
+
+[node name="CostBox" type="Node2D" parent="."]
+script = ExtResource( 46 )
+
+[node name="CostBacking" type="ColorRect" parent="CostBox"]
+visible = false
+margin_left = 24.0
+margin_top = 20.0
+margin_right = 114.0
+margin_bottom = 42.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0.34902 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CostLabel" type="Label" parent="CostBox"]
+visible = false
+margin_left = 28.0
+margin_top = 22.0
+margin_right = 82.0
+margin_bottom = 79.0
+custom_fonts/font = SubResource( 5 )
+text = "15 wood
+25 stone
+30 labor"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Player" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -406,7 +477,7 @@ margin_left = 39.7263
 margin_top = 8.0
 margin_right = 129.726
 margin_bottom = 33.0
-hint_tooltip = "Wood"
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
 text = "1348943"
@@ -416,14 +487,14 @@ __meta__ = {
 }
 
 [node name="WoodIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 153, 20 )
+position = Vector2( 164, 20 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 39 )
 
 [node name="WoodBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 172.0
+margin_left = 183.0
 margin_top = 8.0
-margin_right = 264.0
+margin_right = 275.0
 margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
@@ -431,11 +502,11 @@ __meta__ = {
 }
 
 [node name="Wood" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 172.0
+margin_left = 183.0
 margin_top = 8.0
-margin_right = 260.0
+margin_right = 271.0
 margin_bottom = 33.0
-hint_tooltip = "Grain"
+hint_tooltip = "Wood"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
 text = "1234567"
@@ -445,25 +516,25 @@ __meta__ = {
 }
 
 [node name="StoneIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 282.621, 20 )
+position = Vector2( 308.677, 20.2737 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 40 )
 
 [node name="StoneBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 302.223
-margin_top = 8.0
-margin_right = 394.223
-margin_bottom = 34.0
+margin_left = 328.279
+margin_top = 8.2737
+margin_right = 420.279
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Stone" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 301.0
-margin_top = 8.0
-margin_right = 389.0
-margin_bottom = 33.0
+margin_left = 327.056
+margin_top = 8.2737
+margin_right = 415.056
+margin_bottom = 33.2737
 hint_tooltip = "Stone"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -474,25 +545,25 @@ __meta__ = {
 }
 
 [node name="LaborIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 412.497, 20 )
+position = Vector2( 455.044, 20.2737 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 38 )
 
 [node name="LaborBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 432.223
-margin_top = 8.0
-margin_right = 524.223
-margin_bottom = 34.0
+margin_left = 474.77
+margin_top = 8.2737
+margin_right = 566.77
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Labor" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 430.0
-margin_top = 8.0
-margin_right = 520.0
-margin_bottom = 33.0
+margin_left = 472.547
+margin_top = 8.2737
+margin_right = 562.547
+margin_bottom = 33.2737
 hint_tooltip = "Labor"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -503,25 +574,25 @@ __meta__ = {
 }
 
 [node name="CopperIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 541.497, 20 )
+position = Vector2( 598.383, 20.2737 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
 [node name="CopperBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 560.223
-margin_top = 8.0
-margin_right = 652.223
-margin_bottom = 34.0
+margin_left = 617.109
+margin_top = 8.2737
+margin_right = 709.109
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Copper" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 558.98
-margin_top = 8.0
-margin_right = 648.98
-margin_bottom = 33.0
+margin_left = 615.866
+margin_top = 8.2737
+margin_right = 705.866
+margin_bottom = 33.2737
 hint_tooltip = "Copper"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -532,25 +603,25 @@ __meta__ = {
 }
 
 [node name="GoldIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 667.706, 20 )
+position = Vector2( 740.366, 20.2737 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 35 )
 
 [node name="GoldBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 687.432
-margin_top = 8.0
-margin_right = 779.432
-margin_bottom = 34.0
+margin_left = 760.092
+margin_top = 8.2737
+margin_right = 852.092
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Gold" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 685.19
-margin_top = 8.0
-margin_right = 775.19
-margin_bottom = 33.0
+margin_left = 757.85
+margin_top = 8.2737
+margin_right = 847.85
+margin_bottom = 33.2737
 hint_tooltip = "Gold"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -561,25 +632,25 @@ __meta__ = {
 }
 
 [node name="TinIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 793.916, 19.7263 )
+position = Vector2( 884.141, 20 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 36 )
 
 [node name="TinBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 811.642
-margin_top = 8.0
-margin_right = 903.642
-margin_bottom = 34.0
+margin_left = 901.867
+margin_top = 8.2737
+margin_right = 993.867
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Tin" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 810.399
-margin_top = 7.72626
-margin_right = 900.399
-margin_bottom = 32.7263
+margin_left = 900.624
+margin_top = 7.99996
+margin_right = 990.624
+margin_bottom = 33.0
 hint_tooltip = "Tin"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -591,25 +662,25 @@ __meta__ = {
 
 [node name="BronzeIcon" type="Sprite" parent="UILayer/ResourceBar"]
 modulate = Color( 0.572549, 0.592157, 0.560784, 1 )
-position = Vector2( 920.126, 19.7263 )
+position = Vector2( 1027.92, 20 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
 [node name="BronzeBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 938.631
-margin_top = 8.0
-margin_right = 1030.63
-margin_bottom = 34.0
+margin_left = 1046.42
+margin_top = 8.2737
+margin_right = 1138.42
+margin_bottom = 34.2737
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Bronze" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 937.609
-margin_top = 7.72626
-margin_right = 1027.61
-margin_bottom = 32.7263
+margin_left = 1045.4
+margin_top = 7.99996
+margin_right = 1135.4
+margin_bottom = 33.0
 hint_tooltip = "Bronze"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
@@ -749,6 +820,22 @@ position = Vector2( 20.5502, 15.611 )
 scale = Vector2( 0.601703, 0.601703 )
 texture = ExtResource( 28 )
 
+[node name="DezoneButton" type="Button" parent="UILayer/ZoneMenu"]
+margin_left = -6.70424
+margin_top = 159.282
+margin_right = 33.2958
+margin_bottom = 189.282
+hint_tooltip = "Noble Housing"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/DezoneButton"]
+position = Vector2( 20.5502, 15.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 44 )
+
 [node name="BuildWidget" type="Control" parent="UILayer"]
 margin_right = 8.0
 margin_bottom = 161.0
@@ -857,11 +944,12 @@ __meta__ = {
 [connection signal="pressed" from="UILayer/ZoneMenu/ArtisanButton" to="UILayer/ZoneMenu" method="_on_ArtisanButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/ArtisanHousingButton" to="UILayer/ZoneMenu" method="_on_ArtisanHousingButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/NobleHousingButton" to="UILayer/ZoneMenu" method="_on_NobleHousingButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/DezoneButton" to="UILayer/ZoneMenu" method="_on_DezoneButton_pressed"]
 [connection signal="mouse_entered" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
 [connection signal="mouse_exited_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="mouse_entered" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
 [connection signal="mouse_exited" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
-[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/BuildWidget" method="_on_ZonesButton_pressed"]
 [connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/ZoneMenu" method="_on_ZonesButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/BuildWidget" method="_on_ZonesButton_pressed"]

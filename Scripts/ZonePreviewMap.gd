@@ -7,7 +7,8 @@ var zone_tile_ids = {
 	1: 0,
 	2: 5,
 	3: 4,
-	4: 2}
+	4: 2,
+	6: 6}
 
 func load_map():
 	width = get_tree().root.get_node("Main/WorldGen").width
@@ -15,8 +16,5 @@ func load_map():
 
 func reset_preview_zone(zone_tiles, zone_type):
 	clear()
-	print("previewing zone")
-	print(zone_tiles)
-	print(zone_type)
 	for tile in zone_tiles:
 		set_cellv(tile, zone_tile_ids[zone_type])

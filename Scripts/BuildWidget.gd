@@ -9,12 +9,12 @@ func _ready():
 
 
 func _on_ZonesButton_pressed():
-	print("pressed")
-	print(zone_menu.visible)
+	get_tree().root.get_node("Main/WorldGen/SelectionBox")._on_toggle_zoning_mode()
 	if zone_menu.visible == false:
 		zone_menu.show()
 	else:
 		zone_menu.hide()
+		zone_menu.disable_zoning_mode()
 
 
 func _on_BuildWidget_mouse_entered():

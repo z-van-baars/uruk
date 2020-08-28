@@ -13,8 +13,6 @@ func _ready():
 	$WorldGen/ResourceTileMap.paint_resources()
 	$WorldGen/BuildingTileMap.load_map()
 	$WorldGen/BuildingTileMap.paint_buildings()
-	
-	$Buildings.buildings = $WorldGen.buildings
 	$Player/Camera2D.center_on_tile(Vector2(50, 50))
 	$Player.connect(
 		"toggle_build_mode",

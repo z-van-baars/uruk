@@ -2,8 +2,8 @@ extends Node2D
 
 var terrain = []
 var resources = []
-var buildings = []
-var zones = []
+var building_map = []
+var zoned_tiles = []
 var width
 var height
 
@@ -22,8 +22,8 @@ func gen_new(dimensions):
 			zone_row.append(null)
 		terrain.append(terrain_row)
 		resources.append(resource_row)
-		buildings.append(building_row)
-		zones.append(zone_row)
+		building_map.append(building_row)
+		zoned_tiles.append(zone_row)
 	gen_resources(dimensions)
 
 func gen_resources(dimensions):

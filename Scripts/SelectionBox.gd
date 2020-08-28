@@ -26,15 +26,27 @@ func _on_toggle_build_mode():
 	build_mode = !build_mode
 	visible = !visible
 
+func _on_toggle_zoning_mode():
+	zoning_mode = !zoning_mode
+	all_off()
+	visible = !visible
+
+func all_off():
+	for each in $ZoneSprites.get_children():
+		each.hide()
+
+
 func set_zone(zone_type):
-	$Blank.hide()
-	$Farmland.hide()
-	$Slums.hide()
-	$Artisan.hide()
-	$ArtisanHousing.hide()
-	$NobleHousing.hide()
-	$Bulldoze.hide()
+	all_off()
 	if zone_type == 0:
-		$Farmland.show()
+		$ZoneSprites/Farmland.show()
 	elif zone_type == 1:
-		$Slums.show()
+		$ZoneSprites/Slums.show()
+	elif zone_type == 2:
+		$ZoneSprites/Artisan.show()
+	elif zone_type == 3:
+		$ZoneSprites/ArtisanHousing.show()
+	elif zone_type == 4:
+		$ZoneSprites/NobleHousing.show()
+	elif zone_type == 6:
+		$ZoneSprites/Dezone.show()

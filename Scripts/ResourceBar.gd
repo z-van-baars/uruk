@@ -8,18 +8,17 @@ func _ready():
 	update()
 
 func update():
-	$Grain.text = str(player.grain)
-	$Wood.text = str(player.wood)
-	$Stone.text = str(player.stone)
-	$Labor.text = str(player.labor)
-	$Copper.text = str(player.copper)
-	$Gold.text = str(player.gold)
-	$Tin.text = str(player.tin)
-	$Bronze.text = str(player.bronze)
+	$Grain.text = str(player.stockpile["grain"])
+	$Wood.text = str(player.stockpile["wood"])
+	$Stone.text = str(player.stockpile["stone"])
+	$Labor.text = str(player.stockpile["labor"])
+	$Copper.text = str(player.stockpile["copper"])
+	$Gold.text = str(player.stockpile["gold"])
+	$Tin.text = str(player.stockpile["tin"])
+	$Bronze.text = str(player.stockpile["bronze"])
 
 func _on_Player_update_resource_bar():
 	update()
-
 
 func _on_ResourceBar_mouse_entered():
 	emit_signal("mouse_entered_menu")
