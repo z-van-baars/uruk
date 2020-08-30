@@ -18,3 +18,4 @@ func _ready():
 		"toggle_build_mode",
 		$WorldGen/SelectionBox,
 		"_on_toggle_build_mode")
+	$BuildTimer.start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -47,6 +47,9 @@
 [ext_resource path="res://Fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=45]
 [ext_resource path="res://Scripts/UI/CostBox.gd" type="Script" id=46]
 [ext_resource path="res://Scripts/Demand.gd" type="Script" id=47]
+[ext_resource path="res://Scripts/UI/DemandBox.gd" type="Script" id=48]
+[ext_resource path="res://Assets/sound/thud_1.ogg" type="AudioStream" id=49]
+[ext_resource path="res://Assets/sound/fuzz_1.ogg" type="AudioStream" id=50]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_1.png 0"
@@ -298,8 +301,39 @@
 size = 14
 font_data = ExtResource( 45 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.94902, 0.490196, 0.152941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.94902, 0.713726, 0.152941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.152941, 0.72549, 0.94902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.345098, 0.94902, 0.152941, 1 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.643137, 0.152941, 0.94902, 1 )
+
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="Sounds"]
+
+[node name="SFX" type="Node" parent="Sounds"]
+
+[node name="Thud1" type="AudioStreamPlayer" parent="Sounds/SFX"]
+stream = ExtResource( 49 )
+
+[node name="Fuzz1" type="AudioStreamPlayer" parent="Sounds/SFX"]
+stream = ExtResource( 50 )
+volume_db = -15.146
 
 [node name="Tools" type="Node2D" parent="."]
 script = ExtResource( 32 )
@@ -410,6 +444,10 @@ script = ExtResource( 8 )
 [node name="Buildings" type="Node2D" parent="."]
 script = ExtResource( 12 )
 
+[node name="ProductionTimer" type="Timer" parent="."]
+
+[node name="BuildTimer" type="Timer" parent="."]
+
 [node name="CostBox" type="Node2D" parent="."]
 script = ExtResource( 46 )
 
@@ -446,6 +484,9 @@ script = ExtResource( 3 )
 current = true
 script = ExtResource( 17 )
 
+[node name="ShakeTimer" type="Timer" parent="Player/Camera2D"]
+wait_time = 0.1
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="ResourceBar" type="ColorRect" parent="UILayer"]
@@ -457,12 +498,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GrainIcon" type="Sprite" parent="UILayer/ResourceBar"]
+[node name="ResourceBoxes" type="HBoxContainer" parent="UILayer/ResourceBar"]
+margin_right = 1920.0
+margin_bottom = 40.0
+custom_constants/separation = 191
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grain" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
 position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 37 )
 
-[node name="GrainBacking" type="ColorRect" parent="UILayer/ResourceBar"]
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -472,7 +527,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Grain" type="Label" parent="UILayer/ResourceBar"]
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
 margin_left = 39.7263
 margin_top = 8.0
 margin_right = 129.726
@@ -486,206 +541,350 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WoodIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 164, 20 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wood" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 191.0
+margin_right = 191.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Wood"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 39 )
 
-[node name="WoodBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 183.0
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Wood"]
+margin_left = 43.0
 margin_top = 8.0
-margin_right = 275.0
+margin_right = 135.0
 margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Wood" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 183.0
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Wood"]
+margin_left = 39.7263
 margin_top = 8.0
-margin_right = 271.0
+margin_right = 129.726
 margin_bottom = 33.0
-hint_tooltip = "Wood"
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StoneIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 308.677, 20.2737 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Wood"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stone" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 382.0
+margin_right = 382.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Stone"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 40 )
 
-[node name="StoneBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 328.279
-margin_top = 8.2737
-margin_right = 420.279
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Stone"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stone" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 327.056
-margin_top = 8.2737
-margin_right = 415.056
-margin_bottom = 33.2737
-hint_tooltip = "Stone"
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Stone"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
+margin_bottom = 33.0
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LaborIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 455.044, 20.2737 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Stone"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Labor" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 573.0
+margin_right = 573.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Labor"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 38 )
 
-[node name="LaborBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 474.77
-margin_top = 8.2737
-margin_right = 566.77
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Labor"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Labor" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 472.547
-margin_top = 8.2737
-margin_right = 562.547
-margin_bottom = 33.2737
-hint_tooltip = "Labor"
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Labor"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
+margin_bottom = 33.0
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CopperIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 598.383, 20.2737 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Labor"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Copper" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 764.0
+margin_right = 764.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Copper"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
-[node name="CopperBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 617.109
-margin_top = 8.2737
-margin_right = 709.109
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Copper"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Copper" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 615.866
-margin_top = 8.2737
-margin_right = 705.866
-margin_bottom = 33.2737
-hint_tooltip = "Copper"
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Copper"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
+margin_bottom = 33.0
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GoldIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 740.366, 20.2737 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Copper"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gold" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 955.0
+margin_right = 955.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Gold"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 35 )
 
-[node name="GoldBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 760.092
-margin_top = 8.2737
-margin_right = 852.092
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Gold"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Gold" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 757.85
-margin_top = 8.2737
-margin_right = 847.85
-margin_bottom = 33.2737
-hint_tooltip = "Gold"
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Gold"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
+margin_bottom = 33.0
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TinIcon" type="Sprite" parent="UILayer/ResourceBar"]
-position = Vector2( 884.141, 20 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Gold"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tin" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 1146.0
+margin_right = 1146.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Tin"]
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 36 )
 
-[node name="TinBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 901.867
-margin_top = 8.2737
-margin_right = 993.867
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Tin"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tin" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 900.624
-margin_top = 7.99996
-margin_right = 990.624
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Tin"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
 margin_bottom = 33.0
-hint_tooltip = "Tin"
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BronzeIcon" type="Sprite" parent="UILayer/ResourceBar"]
-modulate = Color( 0.572549, 0.592157, 0.560784, 1 )
-position = Vector2( 1027.92, 20 )
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Tin"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bronze" type="Control" parent="UILayer/ResourceBar/ResourceBoxes"]
+margin_left = 1337.0
+margin_right = 1337.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="UILayer/ResourceBar/ResourceBoxes/Bronze"]
+modulate = Color( 0.533333, 0.32549, 0.32549, 1 )
+position = Vector2( 25, 22 )
 scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
-[node name="BronzeBacking" type="ColorRect" parent="UILayer/ResourceBar"]
-margin_left = 1046.42
-margin_top = 8.2737
-margin_right = 1138.42
-margin_bottom = 34.2737
+[node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Bronze"]
+margin_left = 43.0
+margin_top = 8.0
+margin_right = 135.0
+margin_bottom = 34.0
 color = Color( 0, 0, 0, 0.607843 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bronze" type="Label" parent="UILayer/ResourceBar"]
-margin_left = 1045.4
-margin_top = 7.99996
-margin_right = 1135.4
+[node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Bronze"]
+margin_left = 39.7263
+margin_top = 8.0
+margin_right = 129.726
 margin_bottom = 33.0
-hint_tooltip = "Bronze"
+hint_tooltip = "Grain"
 mouse_filter = 1
 custom_fonts/font = ExtResource( 11 )
-text = "1234567"
+text = "1348943"
 align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Production" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Bronze"]
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 11 )
+text = "+50"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -922,8 +1121,195 @@ text = "B"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="DemandBox" type="Control" parent="UILayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 48 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/DemandBox"]
+margin_left = 1719.0
+margin_top = 79.0
+margin_right = 1920.0
+margin_bottom = 360.0
+color = Color( 0, 0, 0, 0.278431 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/DemandBox/ColorRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -36.5
+margin_top = 3.0
+margin_right = 36.5
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 11 )
+text = "Demand"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelContainer" type="VBoxContainer" parent="UILayer/DemandBox"]
+margin_left = 1728.0
+margin_top = 111.0
+margin_right = 1897.0
+margin_bottom = 332.0
+custom_constants/separation = 24
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Farmland" type="Label" parent="UILayer/DemandBox/LabelContainer"]
+margin_right = 169.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 11 )
+text = "Farmland"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slums" type="Label" parent="UILayer/DemandBox/LabelContainer"]
+margin_top = 49.0
+margin_right = 169.0
+margin_bottom = 74.0
+custom_fonts/font = ExtResource( 11 )
+text = "Slums"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Artisan" type="Label" parent="UILayer/DemandBox/LabelContainer"]
+margin_top = 98.0
+margin_right = 169.0
+margin_bottom = 123.0
+custom_fonts/font = ExtResource( 11 )
+text = "Artisan"
+
+[node name="Artisan Housing" type="Label" parent="UILayer/DemandBox/LabelContainer"]
+margin_top = 147.0
+margin_right = 169.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 11 )
+text = "Artisan Housing"
+
+[node name="Noble Housing" type="Label" parent="UILayer/DemandBox/LabelContainer"]
+margin_top = 196.0
+margin_right = 169.0
+margin_bottom = 221.0
+custom_fonts/font = ExtResource( 11 )
+text = "Noble Housing"
+
+[node name="BarContainer" type="VBoxContainer" parent="UILayer/DemandBox"]
+margin_left = 1728.0
+margin_top = 142.0
+margin_right = 1920.0
+margin_bottom = 360.0
+custom_constants/separation = 48
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FarmlandBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
+margin_right = 180.0
+margin_bottom = 16.0
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
+value = 15.0
+percent_visible = false
+
+[node name="SlumsBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
+margin_top = 49.0
+margin_right = 180.0
+margin_bottom = 65.0
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 7 )
+value = 15.0
+percent_visible = false
+
+[node name="ArtisanBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
+margin_top = 98.0
+margin_right = 180.0
+margin_bottom = 114.0
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 7 )
+value = 15.0
+percent_visible = false
+
+[node name="ArtisanHousingBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
+margin_top = 147.0
+margin_right = 180.0
+margin_bottom = 163.0
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 7 )
+value = 15.0
+percent_visible = false
+
+[node name="NobleHousingBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
+margin_top = 196.0
+margin_right = 180.0
+margin_bottom = 212.0
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 7 )
+value = 15.0
+percent_visible = false
+
+[node name="ValueContainer" type="VBoxContainer" parent="UILayer/DemandBox"]
+margin_left = 1728.0
+margin_top = 137.0
+margin_right = 1920.0
+margin_bottom = 355.0
+custom_constants/separation = 24
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FarmValue" type="Label" parent="UILayer/DemandBox/ValueContainer"]
+margin_right = 192.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+
+[node name="SlumsValue" type="Label" parent="UILayer/DemandBox/ValueContainer"]
+margin_top = 49.0
+margin_right = 192.0
+margin_bottom = 74.0
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+
+[node name="ArtisanValue" type="Label" parent="UILayer/DemandBox/ValueContainer"]
+margin_top = 98.0
+margin_right = 192.0
+margin_bottom = 123.0
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+
+[node name="ArtisanHousingValue" type="Label" parent="UILayer/DemandBox/ValueContainer"]
+margin_top = 147.0
+margin_right = 192.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+
+[node name="NobleHousingValue" type="Label" parent="UILayer/DemandBox/ValueContainer"]
+margin_top = 196.0
+margin_right = 192.0
+margin_bottom = 221.0
+custom_fonts/font = ExtResource( 11 )
+text = "1"
+[connection signal="demand_updated" from="Buildings" to="UILayer/DemandBox" method="_on_Buildings_demand_updated"]
+[connection signal="increment_resources" from="Buildings" to="Player" method="_on_Buildings_increment_resources"]
+[connection signal="production_updated" from="Buildings" to="UILayer/ResourceBar" method="_on_Buildings_production_updated"]
+[connection signal="timeout" from="ProductionTimer" to="Buildings" method="_on_ProductionTimer_timeout"]
+[connection signal="timeout" from="BuildTimer" to="Buildings" method="_on_BuildTimer_timeout"]
+[connection signal="shake_catalyst" from="Player" to="Player/Camera2D" method="_on_shake_catalyst"]
 [connection signal="update_dock" from="Player" to="UILayer/Dock" method="_on_Player_update_dock"]
 [connection signal="update_resource_bar" from="Player" to="UILayer/ResourceBar" method="_on_Player_update_resource_bar"]
+[connection signal="timeout" from="Player/Camera2D/ShakeTimer" to="Player/Camera2D" method="_on_ShakeTimer_timeout"]
 [connection signal="mouse_entered" from="UILayer/ResourceBar" to="UILayer/ResourceBar" method="_on_ResourceBar_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/ResourceBar" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/ResourceBar" to="UILayer/ResourceBar" method="_on_ResourceBar_mouse_exited"]
@@ -951,5 +1337,5 @@ __meta__ = {
 [connection signal="mouse_exited_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="mouse_entered" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
 [connection signal="mouse_exited" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
-[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/ZoneMenu" method="_on_ZonesButton_pressed"]
 [connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/BuildWidget" method="_on_ZonesButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/ZoneMenu" method="_on_ZonesButton_pressed"]

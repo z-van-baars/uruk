@@ -2,20 +2,31 @@ extends ColorRect
 signal mouse_entered_menu
 signal mouse_exited_menu
 var player
+var current_production = {
+	"grain": 0,
+	"wood": 0,
+	"stone": 0,
+	"labor": 0,
+	"copper": 0,
+	"gold": 0,
+	"tin": 0,
+	"bronze": 0
+}
 
 func _ready():
 	player = get_tree().root.get_node("Main/Player")
 	update()
 
 func update():
-	$Grain.text = str(player.stockpile["grain"])
-	$Wood.text = str(player.stockpile["wood"])
-	$Stone.text = str(player.stockpile["stone"])
-	$Labor.text = str(player.stockpile["labor"])
-	$Copper.text = str(player.stockpile["copper"])
-	$Gold.text = str(player.stockpile["gold"])
-	$Tin.text = str(player.stockpile["tin"])
-	$Bronze.text = str(player.stockpile["bronze"])
+	for resource in current_production.keys():
+		get_node("ResourceBoxes/" + resource.capitalize() + "/Value").text = str(player.stockpile[resource])
+		if current_production[resource] >= 0:
+			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").text = "+"
+			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").modulate = Color(0.15, 0.89, 0.06)
+		elif current_production[resource] < 0:
+			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").text = "-"
+			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").modulate = Color(0.89, 0.12, 0.33)
+		get_node("ResourceBoxes/" + resource.capitalize() + "/Production").text += str(current_production[resource])
 
 func _on_Player_update_resource_bar():
 	update()
@@ -26,3 +37,8 @@ func _on_ResourceBar_mouse_entered():
 
 func _on_ResourceBar_mouse_exited():
 	emit_signal("mouse_exited_menu")
+
+
+func _on_Buildings_production_updated(new_production):
+	current_production = new_production
+	update()

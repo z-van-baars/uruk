@@ -9,6 +9,7 @@ func load_map():
 	
 func paint_zones():
 	clear()
+	undeveloped_zone_map.clear()
 	var y_index = 0
 	for row in zoned_tiles:
 		var x_index = 0

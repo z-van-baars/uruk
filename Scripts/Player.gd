@@ -4,6 +4,7 @@ signal update_dock
 signal update_resource_bar
 signal toggle_build_mode
 signal update_maps
+signal shake_catalyst
 
 var mouse_in_menu = false
 
@@ -93,6 +94,10 @@ func _input(event):
 			emit_signal("update_maps")
 			zone_preview_map.clear()
 			cost_box.set_cost_label(zones.get_cost(to_zone, zone_end, zone_end))
+		emit_signal("shake_catalyst")
+		if to_zone == 6:
+			get_tree().root.get_node("Main/Sounds/SFX/Fuzz1").play()
+		get_tree().root.get_node("Main/Sounds/SFX/Thud1").play()
 		
 
 func check_cost(zone_cost):
@@ -104,3 +109,8 @@ func zone_build():
 	var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
 	zones.set_zone(zone_tiles, to_zone)
 	
+
+
+func _on_Buildings_increment_resources(net_production):
+	for resource in net_production.keys():
+		stockpile[resource] += net_production[resource]

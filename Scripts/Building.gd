@@ -3,13 +3,13 @@ extends Node2D
 var building_type = null
 var zone_type = null
 var demand = {
-	"farm1": {"slums": 0.25},
+	"farm1": {"slums": 0.75},
 	"huts1": {"farmland": 2}}
 var tick_production = {
 	"farm1": {"grain": 11},
 	"huts1": {"labor": 1}}
 var tick_consumption = {
-	"farm1": {"labor": 1},
+	"farm1": {"labor": 2},
 	"huts1": {"grain": 10}}
 var zone_types = {
 	"farm1": "farmland",

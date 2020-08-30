@@ -7,8 +7,15 @@ var scroll_speed = 200
 
 var scrolling = false
 var scroll_offset = Vector2(0, 0)
+var shake_amount = 2.0
+var shaking = false
 
-
+func _process(delta):
+	if shaking == true:
+		set_offset(Vector2( \
+			rand_range(-1.0, 1.0) * shake_amount, \
+			rand_range(-1.0, 1.0) * shake_amount \
+		))
 func _input(event):
 	if event.is_action_pressed("ui_w"):
 		scroll_y -= scroll_speed
@@ -56,7 +63,16 @@ func _input(event):
 	
 
 func center_on_tile(tile_coords):
-	var half_dim = get_viewport().size / 2
 	var screen_coords = get_tree().root.get_node("Main/WorldGen/TerrainTileMap").map_to_world(tile_coords)
 	screen_coords -= Vector2(32, 16)
 	position = screen_coords
+
+
+func _on_shake_catalyst(override_amount=2.0, override_duration=0.1):
+	shake_amount = override_amount
+	$ShakeTimer.wait_time = override_duration
+	$ShakeTimer.start()
+	shaking = true
+
+func _on_ShakeTimer_timeout():
+	shaking = false
