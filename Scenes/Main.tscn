@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -56,6 +56,7 @@
 [ext_resource path="res://Assets/buildings/lumbercamp.png" type="Texture" id=54]
 [ext_resource path="res://Assets/buildings/mine.png" type="Texture" id=55]
 [ext_resource path="res://Assets/buildings/temple.png" type="Texture" id=56]
+[ext_resource path="res://Assets/buildings/smelter.png" type="Texture" id=57]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_1.png 0"
@@ -431,6 +432,22 @@ position = Vector2( 0, 16 )
 texture = ExtResource( 44 )
 
 [node name="BuildingSprites" type="Node2D" parent="WorldGen/SelectionBox"]
+
+[node name="LumberCamp" type="Sprite" parent="WorldGen/SelectionBox/BuildingSprites"]
+visible = false
+texture = ExtResource( 54 )
+
+[node name="Mine" type="Sprite" parent="WorldGen/SelectionBox/BuildingSprites"]
+visible = false
+texture = ExtResource( 55 )
+
+[node name="Smelter" type="Sprite" parent="WorldGen/SelectionBox/BuildingSprites"]
+visible = false
+texture = ExtResource( 57 )
+
+[node name="Temple" type="Sprite" parent="WorldGen/SelectionBox/BuildingSprites"]
+visible = false
+texture = ExtResource( 56 )
 
 [node name="ResourceTileMap" type="TileMap" parent="WorldGen"]
 mode = 1
@@ -1475,7 +1492,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="UILayer/BoostersMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/BoostersMenu"]
 margin_left = 60.0
 margin_top = 138.0
 margin_right = 100.0
@@ -1484,13 +1501,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TempleButton" type="Button" parent="UILayer/BoostersMenu/VBoxContainer3"]
+[node name="TempleButton" type="Button" parent="UILayer/BoostersMenu/VBoxContainer"]
 margin_right = 40.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
 
-[node name="Sprite" type="Sprite" parent="UILayer/BoostersMenu/VBoxContainer3/TempleButton"]
+[node name="Sprite" type="Sprite" parent="UILayer/BoostersMenu/VBoxContainer/TempleButton"]
 position = Vector2( 20.7707, 7 )
 texture = ExtResource( 56 )
 
@@ -1523,7 +1540,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UILayer/ProcessorsMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/ProcessorsMenu"]
 margin_left = 60.0
 margin_top = 138.0
 margin_right = 100.0
@@ -1532,13 +1549,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LumberCampButton" type="Button" parent="UILayer/ProcessorsMenu/VBoxContainer2"]
+[node name="SmelterButton" type="Button" parent="UILayer/ProcessorsMenu/VBoxContainer"]
 margin_right = 40.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
 
-[node name="Sprite" type="Sprite" parent="UILayer/ProcessorsMenu/VBoxContainer2/LumberCampButton"]
+[node name="Sprite" type="Sprite" parent="UILayer/ProcessorsMenu/VBoxContainer/SmelterButton"]
 position = Vector2( 18.7707, 4 )
 texture = ExtResource( 54 )
 [connection signal="demand_updated" from="Buildings" to="UILayer/DemandBox" method="_on_Buildings_demand_updated"]
@@ -1582,3 +1599,7 @@ texture = ExtResource( 54 )
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/ArtisanHousingButton" to="UILayer/ZoneMenu" method="_on_ArtisanHousingButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/NobleHousingButton" to="UILayer/ZoneMenu" method="_on_NobleHousingButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/DezoneButton" to="UILayer/ZoneMenu" method="_on_DezoneButton_pressed"]
+[connection signal="pressed" from="UILayer/HarvestersMenu/VBoxContainer/LumberCampButton" to="UILayer/HarvestersMenu" method="_on_LumberCampButton_pressed"]
+[connection signal="pressed" from="UILayer/HarvestersMenu/VBoxContainer/MineButton" to="UILayer/HarvestersMenu" method="_on_MineButton_pressed"]
+[connection signal="pressed" from="UILayer/BoostersMenu/VBoxContainer/TempleButton" to="UILayer/BoostersMenu" method="_on_TempleButton_pressed"]
+[connection signal="pressed" from="UILayer/ProcessorsMenu/VBoxContainer/SmelterButton" to="UILayer/ProcessorsMenu" method="_on_SmelterButton_pressed"]

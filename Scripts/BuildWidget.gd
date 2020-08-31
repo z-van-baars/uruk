@@ -5,12 +5,14 @@ var zone_menu
 var boosters_menu
 var harvesters_menu
 var processors_menu
+var selection_box
 
 func _ready():
 	zone_menu = get_tree().root.get_node("Main/UILayer/ZoneMenu")
 	boosters_menu = get_tree().root.get_node("Main/UILayer/BoostersMenu")
 	harvesters_menu = get_tree().root.get_node("Main/UILayer/HarvestersMenu")
 	processors_menu = get_tree().root.get_node("Main/UILayer/ProcessorsMenu")
+	selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
 
 func hide_all_submenus():
 	for submenu in [
@@ -18,11 +20,14 @@ func hide_all_submenus():
 		boosters_menu,
 		harvesters_menu,
 		processors_menu]:
-		print(submenu)
 		submenu.hide()
 
 func enable_bulldoze_mode():
 	pass
+
+func enable_build_mode():
+	selection_box.build_mode = true
+	selection_box.activate_build_sprite()
 
 func _on_BuildWidget_mouse_entered():
 	emit_signal("mouse_entered_menu")
