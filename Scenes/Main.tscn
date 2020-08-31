@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -50,6 +50,12 @@
 [ext_resource path="res://Scripts/UI/DemandBox.gd" type="Script" id=48]
 [ext_resource path="res://Assets/sound/thud_1.ogg" type="AudioStream" id=49]
 [ext_resource path="res://Assets/sound/fuzz_1.ogg" type="AudioStream" id=50]
+[ext_resource path="res://Scripts/UI/HarvestersMenu.gd" type="Script" id=51]
+[ext_resource path="res://Scripts/UI/BoostersMenu.gd" type="Script" id=52]
+[ext_resource path="res://Scripts/UI/ProductionMenu.gd" type="Script" id=53]
+[ext_resource path="res://Assets/buildings/lumbercamp.png" type="Texture" id=54]
+[ext_resource path="res://Assets/buildings/mine.png" type="Texture" id=55]
+[ext_resource path="res://Assets/buildings/temple.png" type="Texture" id=56]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_1.png 0"
@@ -492,7 +498,7 @@ wait_time = 0.1
 [node name="ResourceBar" type="ColorRect" parent="UILayer"]
 margin_right = 1920.0
 margin_bottom = 40.0
-color = Color( 0, 0, 0, 0.278431 )
+color = Color( 0, 0, 0, 0.686275 )
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -518,6 +524,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 37 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -528,6 +535,7 @@ __meta__ = {
 }
 
 [node name="Value" type="Label" parent="UILayer/ResourceBar/ResourceBoxes/Grain"]
+modulate = Color( 0.933333, 0.439216, 0.054902, 1 )
 margin_left = 39.7263
 margin_top = 8.0
 margin_right = 129.726
@@ -566,6 +574,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 39 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Wood"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -614,6 +623,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 40 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Stone"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -662,6 +672,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 38 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Labor"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -710,6 +721,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Copper"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -758,6 +770,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 35 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Gold"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -806,6 +819,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 36 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Tin"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -855,6 +869,7 @@ scale = Vector2( 0.428946, 0.428946 )
 texture = ExtResource( 41 )
 
 [node name="Backing" type="ColorRect" parent="UILayer/ResourceBar/ResourceBoxes/Bronze"]
+visible = false
 margin_left = 43.0
 margin_top = 8.0
 margin_right = 135.0
@@ -910,214 +925,6 @@ margin_right = 210.0
 margin_bottom = 32.0
 custom_fonts/font = ExtResource( 11 )
 text = "Grain - 2090"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ZoneMenu" type="Control" parent="UILayer"]
-visible = false
-margin_left = 67.6284
-margin_top = 151.429
-margin_right = 107.628
-margin_bottom = 191.429
-script = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="UILayer/ZoneMenu"]
-margin_left = -15.0
-margin_top = -20.7497
-margin_right = 38.0
-margin_bottom = 197.25
-color = Color( 0, 0, 0, 0.47451 )
-
-[node name="ColorRect2" type="ColorRect" parent="UILayer/ZoneMenu"]
-margin_left = -19.0
-margin_top = 14.0
-margin_right = -15.0
-margin_bottom = 37.0
-color = Color( 0, 0, 0, 0.47451 )
-
-[node name="FarmlandButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -8.0
-margin_top = -16.0
-margin_right = 32.0
-margin_bottom = 14.0
-hint_tooltip = "Farmland"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/FarmlandButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 25 )
-
-[node name="SlumsButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -8.0
-margin_top = 18.2971
-margin_right = 32.0
-margin_bottom = 48.2971
-hint_tooltip = "Slums"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/SlumsButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 29 )
-
-[node name="ArtisanButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -8.0
-margin_top = 52.0936
-margin_right = 32.0
-margin_bottom = 82.0936
-hint_tooltip = "Artisan District"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/ArtisanButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 24 )
-
-[node name="ArtisanHousingButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -8.0
-margin_top = 87.767
-margin_right = 32.0
-margin_bottom = 117.767
-hint_tooltip = "Artisan Housing"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/ArtisanHousingButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 27 )
-
-[node name="NobleHousingButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -6.70424
-margin_top = 123.282
-margin_right = 33.2958
-margin_bottom = 153.282
-hint_tooltip = "Noble Housing"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/NobleHousingButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 28 )
-
-[node name="DezoneButton" type="Button" parent="UILayer/ZoneMenu"]
-margin_left = -6.70424
-margin_top = 159.282
-margin_right = 33.2958
-margin_bottom = 189.282
-hint_tooltip = "Noble Housing"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/DezoneButton"]
-position = Vector2( 20.5502, 15.611 )
-scale = Vector2( 0.601703, 0.601703 )
-texture = ExtResource( 44 )
-
-[node name="BuildWidget" type="Control" parent="UILayer"]
-margin_right = 8.0
-margin_bottom = 161.0
-script = ExtResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="UILayer/BuildWidget"]
-margin_top = 151.0
-margin_right = 49.0
-margin_bottom = 320.0
-color = Color( 0, 0, 0, 0.47451 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ZonesButton" type="Button" parent="UILayer/BuildWidget/ColorRect"]
-margin_left = 4.0
-margin_top = 6.6696
-margin_right = 44.0
-margin_bottom = 46.6696
-hint_tooltip = "Zones"
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/ZonesButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -6.0
-margin_top = -12.5
-margin_right = 6.0
-margin_bottom = 12.5
-custom_fonts/font = ExtResource( 11 )
-text = "Z"
-
-[node name="PlopButton" type="Button" parent="UILayer/BuildWidget/ColorRect"]
-margin_left = 4.0
-margin_top = 64.6696
-margin_right = 44.0
-margin_bottom = 104.67
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/PlopButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -6.0
-margin_top = -12.0
-margin_right = 6.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 11 )
-text = "P"
-
-[node name="BulldozeButton" type="Button" parent="UILayer/BuildWidget/ColorRect"]
-margin_left = 4.0
-margin_top = 121.71
-margin_right = 44.0
-margin_bottom = 161.71
-mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/BulldozeButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -6.0
-margin_top = -12.0
-margin_right = 7.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 11 )
-text = "B"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1215,8 +1022,8 @@ __meta__ = {
 }
 
 [node name="FarmlandBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
-margin_right = 180.0
-margin_bottom = 16.0
+margin_right = 192.0
+margin_bottom = 1.0
 custom_styles/fg = SubResource( 6 )
 custom_styles/bg = SubResource( 7 )
 value = 15.0
@@ -1224,8 +1031,8 @@ percent_visible = false
 
 [node name="SlumsBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
 margin_top = 49.0
-margin_right = 180.0
-margin_bottom = 65.0
+margin_right = 192.0
+margin_bottom = 50.0
 custom_styles/fg = SubResource( 8 )
 custom_styles/bg = SubResource( 7 )
 value = 15.0
@@ -1233,8 +1040,8 @@ percent_visible = false
 
 [node name="ArtisanBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
 margin_top = 98.0
-margin_right = 180.0
-margin_bottom = 114.0
+margin_right = 192.0
+margin_bottom = 99.0
 custom_styles/fg = SubResource( 9 )
 custom_styles/bg = SubResource( 7 )
 value = 15.0
@@ -1242,8 +1049,8 @@ percent_visible = false
 
 [node name="ArtisanHousingBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
 margin_top = 147.0
-margin_right = 180.0
-margin_bottom = 163.0
+margin_right = 192.0
+margin_bottom = 148.0
 custom_styles/fg = SubResource( 10 )
 custom_styles/bg = SubResource( 7 )
 value = 15.0
@@ -1251,8 +1058,8 @@ percent_visible = false
 
 [node name="NobleHousingBar" type="ProgressBar" parent="UILayer/DemandBox/BarContainer"]
 margin_top = 196.0
-margin_right = 180.0
-margin_bottom = 212.0
+margin_right = 192.0
+margin_bottom = 197.0
 custom_styles/fg = SubResource( 11 )
 custom_styles/bg = SubResource( 7 )
 value = 15.0
@@ -1301,6 +1108,439 @@ margin_right = 192.0
 margin_bottom = 221.0
 custom_fonts/font = ExtResource( 11 )
 text = "1"
+
+[node name="BuildWidget" type="Control" parent="UILayer"]
+margin_right = 8.0
+margin_bottom = 161.0
+script = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/BuildWidget"]
+margin_top = 151.0
+margin_right = 49.0
+margin_bottom = 415.0
+color = Color( 0, 0, 0, 0.47451 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/BuildWidget/ColorRect"]
+margin_left = 8.0
+margin_top = 14.0
+margin_right = 43.0
+margin_bottom = 258.0
+custom_constants/separation = 11
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZonesButton" type="Button" parent="UILayer/BuildWidget/ColorRect/VBoxContainer"]
+margin_right = 35.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Zones"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/VBoxContainer/ZonesButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.0
+margin_top = -12.5
+margin_right = 6.0
+margin_bottom = 12.5
+custom_fonts/font = ExtResource( 11 )
+text = "Z"
+
+[node name="HarvestersButton" type="Button" parent="UILayer/BuildWidget/ColorRect/VBoxContainer"]
+margin_top = 46.0
+margin_right = 35.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 35, 35 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/VBoxContainer/HarvestersButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -7.5
+margin_top = -12.5
+margin_right = 7.5
+margin_bottom = 12.5
+custom_fonts/font = ExtResource( 11 )
+text = "H"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProcessorsButton" type="Button" parent="UILayer/BuildWidget/ColorRect/VBoxContainer"]
+margin_top = 92.0
+margin_right = 35.0
+margin_bottom = 127.0
+rect_min_size = Vector2( 35, 35 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/VBoxContainer/ProcessorsButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.0
+margin_top = -12.5
+margin_right = 6.0
+margin_bottom = 12.5
+custom_fonts/font = ExtResource( 11 )
+text = "P"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoostersButton" type="Button" parent="UILayer/BuildWidget/ColorRect/VBoxContainer"]
+margin_top = 138.0
+margin_right = 35.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 35, 35 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/VBoxContainer/BoostersButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.5
+margin_top = -12.5
+margin_right = 6.5
+margin_bottom = 12.5
+custom_fonts/font = ExtResource( 11 )
+text = "B"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BulldozeButton" type="Button" parent="UILayer/BuildWidget/ColorRect/VBoxContainer"]
+margin_top = 184.0
+margin_right = 35.0
+margin_bottom = 219.0
+rect_min_size = Vector2( 35, 35 )
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/BuildWidget/ColorRect/VBoxContainer/BulldozeButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.0
+margin_top = -12.0
+margin_right = 7.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 11 )
+text = "S"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZoneMenu" type="Control" parent="UILayer"]
+visible = false
+margin_left = 67.6284
+margin_top = 151.429
+margin_right = 107.628
+margin_bottom = 191.429
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/ZoneMenu"]
+margin_left = -15.0
+margin_top = -21.0
+margin_right = 38.0
+margin_bottom = 223.0
+color = Color( 0, 0, 0, 0.47451 )
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/ZoneMenu"]
+margin_left = -19.0
+margin_top = 20.0
+margin_right = -15.0
+margin_bottom = 42.0
+color = Color( 0, 0, 0, 0.47451 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/ZoneMenu"]
+margin_left = -7.94431
+margin_top = -14.429
+margin_right = 32.0557
+margin_bottom = 215.571
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FarmlandButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Farmland"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/FarmlandButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 25 )
+
+[node name="SlumsButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_top = 39.0
+margin_right = 40.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Slums"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/SlumsButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 29 )
+
+[node name="ArtisanButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_top = 78.0
+margin_right = 40.0
+margin_bottom = 113.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Artisan District"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/ArtisanButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 24 )
+
+[node name="ArtisanHousingButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_top = 117.0
+margin_right = 40.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Artisan Housing"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/ArtisanHousingButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 27 )
+
+[node name="NobleHousingButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_top = 156.0
+margin_right = 40.0
+margin_bottom = 191.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Noble Housing"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/NobleHousingButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 28 )
+
+[node name="DezoneButton" type="Button" parent="UILayer/ZoneMenu/VBoxContainer"]
+margin_top = 195.0
+margin_right = 40.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "Dezone"
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZoneMenu/VBoxContainer/DezoneButton"]
+position = Vector2( 20.5502, 17.611 )
+scale = Vector2( 0.601703, 0.601703 )
+texture = ExtResource( 44 )
+
+[node name="HarvestersMenu" type="Control" parent="UILayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 51 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/HarvestersMenu"]
+margin_left = 53.0
+margin_top = 131.0
+margin_right = 106.0
+margin_bottom = 349.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/HarvestersMenu"]
+margin_left = 49.0
+margin_top = 218.0
+margin_right = 53.0
+margin_bottom = 240.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/HarvestersMenu"]
+margin_left = 60.0
+margin_top = 138.0
+margin_right = 100.0
+margin_bottom = 341.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LumberCampButton" type="Button" parent="UILayer/HarvestersMenu/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "N / A"
+
+[node name="Sprite" type="Sprite" parent="UILayer/HarvestersMenu/VBoxContainer/LumberCampButton"]
+position = Vector2( 18.7707, 4 )
+texture = ExtResource( 54 )
+
+[node name="MineButton" type="Button" parent="UILayer/HarvestersMenu/VBoxContainer"]
+margin_top = 39.0
+margin_right = 40.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "N / A"
+
+[node name="Sprite" type="Sprite" parent="UILayer/HarvestersMenu/VBoxContainer/MineButton"]
+position = Vector2( 20.6908, 2.57635 )
+texture = ExtResource( 55 )
+
+[node name="BoostersMenu" type="Control" parent="UILayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 52 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/BoostersMenu"]
+margin_left = 53.0
+margin_top = 131.0
+margin_right = 106.0
+margin_bottom = 349.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/BoostersMenu"]
+margin_left = 49.0
+margin_top = 310.0
+margin_right = 53.0
+margin_bottom = 332.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="UILayer/BoostersMenu"]
+margin_left = 60.0
+margin_top = 138.0
+margin_right = 100.0
+margin_bottom = 341.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TempleButton" type="Button" parent="UILayer/BoostersMenu/VBoxContainer3"]
+margin_right = 40.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "N / A"
+
+[node name="Sprite" type="Sprite" parent="UILayer/BoostersMenu/VBoxContainer3/TempleButton"]
+position = Vector2( 20.7707, 7 )
+texture = ExtResource( 56 )
+
+[node name="ProcessorsMenu" type="Control" parent="UILayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 53 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/ProcessorsMenu"]
+margin_left = 53.0
+margin_top = 131.0
+margin_right = 106.0
+margin_bottom = 349.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/ProcessorsMenu"]
+margin_left = 49.0
+margin_top = 263.0
+margin_right = 53.0
+margin_bottom = 285.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UILayer/ProcessorsMenu"]
+margin_left = 60.0
+margin_top = 138.0
+margin_right = 100.0
+margin_bottom = 341.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LumberCampButton" type="Button" parent="UILayer/ProcessorsMenu/VBoxContainer2"]
+margin_right = 40.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "N / A"
+
+[node name="Sprite" type="Sprite" parent="UILayer/ProcessorsMenu/VBoxContainer2/LumberCampButton"]
+position = Vector2( 18.7707, 4 )
+texture = ExtResource( 54 )
 [connection signal="demand_updated" from="Buildings" to="UILayer/DemandBox" method="_on_Buildings_demand_updated"]
 [connection signal="increment_resources" from="Buildings" to="Player" method="_on_Buildings_increment_resources"]
 [connection signal="production_updated" from="Buildings" to="UILayer/ResourceBar" method="_on_Buildings_production_updated"]
@@ -1317,6 +1557,17 @@ text = "1"
 [connection signal="mouse_entered" from="UILayer/Dock" to="UILayer/Dock" method="_on_Dock_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/Dock" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/Dock" to="UILayer/Dock" method="_on_Dock_mouse_exited"]
+[connection signal="mouse_entered" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_exited_menu"]
+[connection signal="mouse_entered" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
+[connection signal="mouse_exited" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/ZonesButton" to="UILayer/BuildWidget" method="_on_ZonesButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/HarvestersButton" to="UILayer/BuildWidget" method="_on_HarvestersButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/ProcessorsButton" to="UILayer/BuildWidget" method="_on_ProcessorsButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/BoostersButton" to="UILayer/BuildWidget" method="_on_BoostersButton_pressed"]
+[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/BulldozeButton" to="UILayer/BuildWidget" method="_on_BulldozeButton_pressed"]
 [connection signal="mouse_entered" from="UILayer/ZoneMenu" to="UILayer/ZoneMenu" method="_on_ZoneMenu_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/ZoneMenu" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/ZoneMenu" to="UILayer/ZoneMenu" method="_on_ZoneMenu_mouse_exited"]
@@ -1325,17 +1576,9 @@ text = "1"
 [connection signal="mouse_exited" from="UILayer/ZoneMenu/ColorRect" to="UILayer/ZoneMenu" method="_on_ZoneMenu_mouse_exited"]
 [connection signal="mouse_entered" from="UILayer/ZoneMenu/ColorRect2" to="UILayer/ZoneMenu" method="_on_ZoneMenu_mouse_entered"]
 [connection signal="mouse_exited" from="UILayer/ZoneMenu/ColorRect2" to="UILayer/ZoneMenu" method="_on_ZoneMenu_mouse_exited"]
-[connection signal="pressed" from="UILayer/ZoneMenu/FarmlandButton" to="UILayer/ZoneMenu" method="_on_FarmlandButton_pressed"]
-[connection signal="pressed" from="UILayer/ZoneMenu/SlumsButton" to="UILayer/ZoneMenu" method="_on_SlumsButton_pressed"]
-[connection signal="pressed" from="UILayer/ZoneMenu/ArtisanButton" to="UILayer/ZoneMenu" method="_on_ArtisanButton_pressed"]
-[connection signal="pressed" from="UILayer/ZoneMenu/ArtisanHousingButton" to="UILayer/ZoneMenu" method="_on_ArtisanHousingButton_pressed"]
-[connection signal="pressed" from="UILayer/ZoneMenu/NobleHousingButton" to="UILayer/ZoneMenu" method="_on_NobleHousingButton_pressed"]
-[connection signal="pressed" from="UILayer/ZoneMenu/DezoneButton" to="UILayer/ZoneMenu" method="_on_DezoneButton_pressed"]
-[connection signal="mouse_entered" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
-[connection signal="mouse_entered_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_entered_menu"]
-[connection signal="mouse_exited" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
-[connection signal="mouse_exited_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_exited_menu"]
-[connection signal="mouse_entered" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
-[connection signal="mouse_exited" from="UILayer/BuildWidget/ColorRect" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
-[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/BuildWidget" method="_on_ZonesButton_pressed"]
-[connection signal="pressed" from="UILayer/BuildWidget/ColorRect/ZonesButton" to="UILayer/ZoneMenu" method="_on_ZonesButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/FarmlandButton" to="UILayer/ZoneMenu" method="_on_FarmlandButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/SlumsButton" to="UILayer/ZoneMenu" method="_on_SlumsButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/ArtisanButton" to="UILayer/ZoneMenu" method="_on_ArtisanButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/ArtisanHousingButton" to="UILayer/ZoneMenu" method="_on_ArtisanHousingButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/NobleHousingButton" to="UILayer/ZoneMenu" method="_on_NobleHousingButton_pressed"]
+[connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/DezoneButton" to="UILayer/ZoneMenu" method="_on_DezoneButton_pressed"]

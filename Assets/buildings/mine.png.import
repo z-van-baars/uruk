@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex"
+path="res://.import/mine.png-0a9ea3dbb1b92eb54b65ccdf35db6606.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/buildings/temple.png"
-dest_files=[ "res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex" ]
+source_file="res://Assets/buildings/mine.png"
+dest_files=[ "res://.import/mine.png-0a9ea3dbb1b92eb54b65ccdf35db6606.stex" ]
 
 [params]
 

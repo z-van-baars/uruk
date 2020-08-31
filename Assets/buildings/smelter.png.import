@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex"
+path="res://.import/smelter.png-4ef67678b278ebda58c546553bf0e687.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/buildings/temple.png"
-dest_files=[ "res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex" ]
+source_file="res://Assets/buildings/smelter.png"
+dest_files=[ "res://.import/smelter.png-4ef67678b278ebda58c546553bf0e687.stex" ]
 
 [params]
 

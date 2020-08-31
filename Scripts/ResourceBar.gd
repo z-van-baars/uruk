@@ -19,7 +19,7 @@ func _ready():
 
 func update():
 	for resource in current_production.keys():
-		get_node("ResourceBoxes/" + resource.capitalize() + "/Value").text = str(player.stockpile[resource])
+		get_node("ResourceBoxes/" + resource.capitalize() + "/Value").text = str(floor(player.stockpile[resource]))
 		if current_production[resource] >= 0:
 			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").text = "+"
 			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").modulate = Color(0.15, 0.89, 0.06)

@@ -1,6 +1,8 @@
 extends Node2D
+var tools
 var zone_tilemap
 var buildings
+var resource_map
 var undeveloped_zone_tilemap
 
 var farmland_cost = {
@@ -66,20 +68,20 @@ var tiles_by_zone = {
 var zoned_tiles
 
 func _ready():
+	tools = get_tree().root.get_node("Main/Tools")
 	zone_tilemap = get_tree().root.get_node("Main/WorldGen/ZoneTileMap")
 	undeveloped_zone_tilemap = get_tree().root.get_node("Main/WorldGen/UndevelopedZoneTileMap")
 	buildings = get_tree().root.get_node("Main/Buildings")
+	resource_map  = get_tree().root.get_node("Main/WorldGen").resources
 	zoned_tiles = get_tree().root.get_node("Main/WorldGen").zoned_tiles
 
 
 
-func get_cost(zone_type, zone_start, zone_end):
-	var zone_size = (zone_end - zone_start).abs() + Vector2(1, 1)
-	var zone_size_square = zone_size.x * zone_size.y
-	var zone_area = zone_size.x * zone_size.y
+func get_zone_cost(zone_type, zone_tiles):
+	var zone_size = zone_tiles.size()
 	var total_zone_cost = {}
 	for resource_type in zone_costs[zone_types[zone_type]].keys():
-		total_zone_cost[resource_type] = zone_costs[zone_types[zone_type]][resource_type] * zone_size_square
+		total_zone_cost[resource_type] = zone_costs[zone_types[zone_type]][resource_type] * zone_size
 	return total_zone_cost
 
 
@@ -94,10 +96,21 @@ func set_zone(zone_tiles, zone_id):
 		tiles_by_zone[zone_str].append(tile)
 		zoned_tiles[tile.y][tile.x] = zone_id
 
-func get_available(zone_str):
+func get_unbuilt(zone_str):
 	var all_zoned = tiles_by_zone[zone_str]
 	var unbuilt = []
 	for zoned_tile in all_zoned:
 		if buildings.is_built(zoned_tile) == false:
 			unbuilt.append(zoned_tile)
+
 	return unbuilt
+
+
+func get_unblocked(zone_start, zone_end):
+	var unblocked = []
+	var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
+	for zoned_tile in zone_tiles:
+		if (resource_map[zoned_tile.y][zoned_tile.x] == null and
+			buildings.is_built(zoned_tile) == false):
+			unblocked.append(zoned_tile)
+	return unblocked

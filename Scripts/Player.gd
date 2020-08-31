@@ -24,6 +24,7 @@ var zoning_mode = false
 var to_zone = null
 var zone_start = Vector2.ZERO
 var zone_end = Vector2.ZERO
+var zone_tiles = []
 var dragging_zone = false
 
 
@@ -56,9 +57,9 @@ func _process(delta):
 		var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
 		if selected_tile.x == zone_end.x and selected_tile.y == zone_end.y: return
 		zone_end = selected_tile
-		var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
+		zone_tiles = zones.get_unblocked(zone_start, zone_end)
 		zone_preview_map.reset_preview_zone(zone_tiles, to_zone)
-		cost_box.set_cost_label(zones.get_cost(to_zone, zone_start, zone_end))
+		cost_box.set_cost_label(zones.get_zone_cost(to_zone, zone_tiles))
 
 func _input(event):
 	if $Camera2D.scrolling == true:
@@ -75,8 +76,9 @@ func _input(event):
 			var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
 			zone_start = selected_tile
 			zone_end = selected_tile
+			zone_tiles = zones.get_unblocked(selected_tile, selected_tile)
 			dragging_zone = true
-			cost_box.set_cost_label(zones.get_cost(to_zone, zone_start, zone_end))
+			cost_box.set_cost_label(zones.get_zone_cost(to_zone, zone_tiles))
 			emit_signal("update_maps")
 		elif build_mode == true and zoning_mode == false:
 			var selected_tile = get_tree().root.get_node("Main/WorldGen/SelectionBox").get_selected_tile()
@@ -93,20 +95,20 @@ func _input(event):
 			zone_build()
 			emit_signal("update_maps")
 			zone_preview_map.clear()
-			cost_box.set_cost_label(zones.get_cost(to_zone, zone_end, zone_end))
+			cost_box.set_cost_label(zones.get_zone_cost(to_zone, [zone_end]))
 		emit_signal("shake_catalyst")
-		if to_zone == 6:
+		if to_zone == 6 or zone_tiles.size() == 0:
 			get_tree().root.get_node("Main/Sounds/SFX/Fuzz1").play()
 		get_tree().root.get_node("Main/Sounds/SFX/Thud1").play()
+		zone_tiles = []
 		
 
 func check_cost(zone_cost):
 	return true
 
 func zone_build():
-	var zone_cost = zones.get_cost(to_zone, zone_start, zone_end)
+	var zone_cost = zones.get_zone_cost(to_zone, zone_tiles)
 	if check_cost(zone_cost) == false: return
-	var zone_tiles = tools.get_tiles_in_zone(zone_start, zone_end)
 	zones.set_zone(zone_tiles, to_zone)
 	
 

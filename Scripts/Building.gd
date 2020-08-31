@@ -6,18 +6,14 @@ var demand = {
 	"farm1": {"slums": 0.75},
 	"huts1": {"farmland": 2}}
 var tick_production = {
-	"farm1": {"grain": 11},
-	"huts1": {"labor": 1}}
+	"farm1": {"grain": 1.1},
+	"huts1": {"labor": 0.01},}
 var tick_consumption = {
-	"farm1": {"labor": 2},
-	"huts1": {"grain": 10}}
+	"farm1": {},
+	"huts1": {"grain": 1}}
 var zone_types = {
 	"farm1": "farmland",
 	"huts1": "slums"}
-
-var satisfactor = {
-	"farm1": 1,
-	"huts1": 1}
 
 func load_building(building_name):
 	building_type = building_name
@@ -32,9 +28,6 @@ func get_consumption():
 
 func get_production():
 	return tick_production[building_type]
-
-func get_zone_satisfaction():
-	return satisfactor[building_type]
 
 func get_zone_type():
 	return zone_types[building_type]

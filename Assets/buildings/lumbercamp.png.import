@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex"
+path="res://.import/lumbercamp.png-4d350462e5f3482abb5d13ce9687d9bf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/buildings/temple.png"
-dest_files=[ "res://.import/temple.png-179e809fdbdc3bdc3a2c8fbb0554b75a.stex" ]
+source_file="res://Assets/buildings/lumbercamp.png"
+dest_files=[ "res://.import/lumbercamp.png-4d350462e5f3482abb5d13ce9687d9bf.stex" ]
 
 [params]
 
