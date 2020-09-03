@@ -80,8 +80,9 @@ func _ready():
 func get_zone_cost(zone_type, zone_tiles):
 	var zone_size = zone_tiles.size()
 	var total_zone_cost = {}
-	for resource_type in zone_costs[zone_types[zone_type]].keys():
-		total_zone_cost[resource_type] = zone_costs[zone_types[zone_type]][resource_type] * zone_size
+	if zone_type != null:
+		for resource_type in zone_costs[zone_types[zone_type]].keys():
+			total_zone_cost[resource_type] = zone_costs[zone_types[zone_type]][resource_type] * zone_size
 	return total_zone_cost
 
 

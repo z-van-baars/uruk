@@ -15,13 +15,13 @@ func _ready():
 func enable_zoning_mode():
 	selection_box.zoning_mode = true
 	selection_box.show()
-
 	player.zoning_mode = true
 	player.emit_signal("update_dock")
 
 func disable_zoning_mode():
 	selection_box.zoning_mode = false
 	selection_box.hide()
+	cost_box.hide()
 	player.zoning_mode = false
 	player.to_zone = null
 	player.emit_signal("update_dock")
@@ -62,7 +62,6 @@ func _on_NobleHousingButton_pressed():
 	player.to_zone = 4
 	selection_box.set_zone(4)
 	activate_cost_box()
-
 
 func _on_DezoneButton_pressed():
 	enable_zoning_mode()

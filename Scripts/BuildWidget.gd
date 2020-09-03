@@ -15,6 +15,7 @@ func _ready():
 	selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
 
 func hide_all_submenus():
+	zone_menu.disable_zoning_mode()
 	for submenu in [
 		zone_menu,
 		boosters_menu,
@@ -28,6 +29,7 @@ func enable_bulldoze_mode():
 func enable_build_mode():
 	selection_box.build_mode = true
 	selection_box.activate_build_sprite()
+	selection_box.show()
 
 func _on_BuildWidget_mouse_entered():
 	emit_signal("mouse_entered_menu")
@@ -47,18 +49,21 @@ func _on_BoostersButton_pressed():
 	var reopen = !boosters_menu.visible
 	hide_all_submenus()
 	if reopen == true:
+		enable_build_mode()
 		boosters_menu.show()
 
 func _on_HarvestersButton_pressed():
 	var reopen = !harvesters_menu.visible
 	hide_all_submenus()
 	if reopen == true:
+		enable_build_mode()
 		harvesters_menu.show()
 
 func _on_ProcessorsButton_pressed():
 	var reopen = !processors_menu.visible
 	hide_all_submenus()
 	if reopen == true:
+		enable_build_mode()
 		processors_menu.show()
 
 func _on_BulldozeButton_pressed():

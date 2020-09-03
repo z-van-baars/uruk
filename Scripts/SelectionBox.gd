@@ -3,8 +3,8 @@ var tile_map
 var zones
 var player
 
-var build_sprites = {}
-var zone_sprites = {}
+var build_sprites
+var zone_sprites
 
 var pos = Vector2(0, 0)
 var selected_tile
@@ -15,25 +15,24 @@ func _ready():
 	tile_map = get_tree().root.get_node("Main/WorldGen/TerrainTileMap")
 	zones = get_tree().root.get_node("Main/Zones")
 	player = get_tree().root.get_node("Main/Player")
-	var build_sprites = {
-		
-	}
-	zone_sprites = {
-		0: $ZoneSprites/Farmland,
-		1: $ZoneSprites/Slums,
-		2: $ZoneSprites/Artisan,
-		3: $ZoneSprites/ArtisanHousing,
-		4: $ZoneSprites/NobleHousing,
-		-1: $ZoneSprites/Bulldoze,
-		-2: $ZoneSprites/Blank,
-		6: $ZoneSprites/Dezone}
-	build_sprites = {
-		0: $buildingSprites/Farm1,
-		1: $BuildingSprites/House1,
-		2: $BuildingSprites/LumberCamp,
-		3: $BuildingSprites/Mine,
-		4: $BuildingSprites/Smelter,
-		5: $BuildingSprites/Temple}
+	zone_sprites = [
+		$ZoneSprites/Farmland,
+		$ZoneSprites/Slums,
+		$ZoneSprites/Artisan,
+		$ZoneSprites/ArtisanHousing,
+		$ZoneSprites/NobleHousing,
+		null,
+		$ZoneSprites/Dezone,
+		$ZoneSprites/Blank,
+		$ZoneSprites/Bulldoze]
+
+	build_sprites = [
+		$BuildingSprites/Farm1,
+		$BuildingSprites/House1,
+		$BuildingSprites/LumberCamp,
+		$BuildingSprites/Mine,
+		$BuildingSprites/Smelter,
+		$BuildingSprites/Temple]
 
 func _process(delta):
 	if build_mode == false and zoning_mode == false:
@@ -65,6 +64,7 @@ func activate_build_sprite():
 	all_off()
 	if player.to_build == null: return
 	build_sprites[player.to_build].show()
+	$ZoneSprites/Blank.show()
 	
 func set_zone(zone_type):
 	all_off()
