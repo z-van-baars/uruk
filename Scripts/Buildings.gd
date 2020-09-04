@@ -12,6 +12,14 @@ var production_timer
 
 var building_scene = preload("res://Scenes/Building.tscn")
 
+var building_types = [
+	"farm1",
+	"house1",
+	"lumbe camp",
+	"mine",
+	"smelter",
+	"temple"
+]
 var tier_1 = {
 	"farmland": "farm1",
 	"slums": "huts1"}
@@ -93,6 +101,10 @@ func production_tick():
 	emit_signal("production_updated", net_production)
 	emit_signal("increment_resources", net_production)
 
+func new_building(building_id):
+	var new_building = building_types[building_id].instance()
+	add_child(new_building)
+
 func is_built(input_tile):
 	if building_map[input_tile.y][input_tile.x] == null:
 		return false
@@ -119,7 +131,8 @@ func get_satisfaction():
 		"slums": 0,
 		"artisan": 0,
 		"artisan housing": 0,
-		"noble housing": 0}
+		"noble housing": 0,
+		"other": 0}
 	for building in get_children():
 		satisfaction[building.get_zone_type()] += 1
 	return satisfaction
