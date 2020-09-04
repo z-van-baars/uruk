@@ -10,6 +10,11 @@ var tools
 var build_timer
 var production_timer
 
+var cached_consumption
+var cached_production
+var cached_demand
+var cached_satisfaction
+
 var building_scene = preload("res://Scenes/Building.tscn")
 
 var building_types = [
@@ -33,6 +38,11 @@ func _ready():
 	build_timer = get_tree().root.get_node("Main/BuildTimer")
 	production_timer = get_tree().root.get_node("Main/ProductionTimer")
 
+func recalculate_all():
+	cached_consumption = calculate_consumption()
+	cached_production = calculate_production()
+	cached_demand = calculate_demand()
+	cached_satisfaction = calculate_satisfaction()
 
 func build_tick():
 	var unmet_demand = calculate_unmet_demand()
@@ -43,7 +53,7 @@ func build_tick():
 		"artisan housing": 0,
 		"noble housing": 0}
 	emit_signal("demand_updated", unmet_demand)
-
+	var recalculate = false
 	for zone_type in unmet_demand:
 		if unmet_demand[zone_type] < 1:
 			continue
@@ -59,6 +69,9 @@ func build_tick():
 			new_building(tier_1[zone_type], random_zone_tile)
 
 			zones.undeveloped_zone_tilemap.set_cellv(random_zone_tile, -1)
+			recalculate = true
+		
+	if recalculate == true: recalculate_all()
 
 func calculate_production():
 	var raw_production = {
@@ -89,11 +102,9 @@ func calculate_consumption():
 	return raw_consumption
 
 func production_tick():
-	var total_production = calculate_production()
-	var total_consumption = calculate_consumption()
-	var net_production = total_production
-	for resource in total_consumption.keys():
-		net_production[resource] -= total_consumption[resource]
+	var net_production = cached_production
+	for resource in cached_consumption.keys():
+		net_production[resource] -= cached_consumption[resource]
 	emit_signal("production_updated", net_production)
 	emit_signal("increment_resources", net_production)
 
@@ -110,21 +121,19 @@ func is_built(input_tile):
 	return true
 			
 func calculate_unmet_demand():
-	var raw_demand = get_demand()
-	var met_demand = get_satisfaction()
 	var unmet_demand = {
 		"farmland": 0,
 		"slums": 0,
 		"artisan": 0,
 		"artisan housing": 0,
 		"noble housing": 0}
-	for zone_type in raw_demand.keys():
-		unmet_demand[zone_type] = raw_demand[zone_type] - met_demand[zone_type]
+	for zone_type in cached_demand.keys():
+		unmet_demand[zone_type] = cached_demand[zone_type] - cached_satisfaction[zone_type]
 	unmet_demand["farmland"] += 2
 	unmet_demand["slums"] += 1
 	return unmet_demand
 
-func get_satisfaction():
+func calculate_satisfaction():
 	var satisfaction = {
 		"farmland": 0,
 		"slums": 0,
@@ -136,7 +145,7 @@ func get_satisfaction():
 		satisfaction[building.get_zone_type()] += 1
 	return satisfaction
 		
-func get_demand():
+func calculate_demand():
 	var raw_demand = {
 		"farmland": 0,
 		"slums": 0,

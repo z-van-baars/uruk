@@ -76,6 +76,7 @@ func _input(event):
 		elif build_mode == true and zoning_mode == false:
 			var selected_tile = selection_box.get_selected_tile()
 			worldgen.building_map[selected_tile.y][selected_tile.x] = to_build
+			emit_signal("shake_catalyst", 3.0)
 			get_tree().root.get_node(
 				"Main/WorldGen/BuildingTileMap").set_cellv(
 					selected_tile,

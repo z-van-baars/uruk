@@ -19,3 +19,4 @@ func _ready():
 		$WorldGen/SelectionBox,
 		"_on_toggle_build_mode")
 	$BuildTimer.start()
+	$Buildings.recalculate_all()
