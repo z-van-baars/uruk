@@ -54,9 +54,12 @@ func _process(delta):
 		cost_box.set_cost_label(zones.get_zone_cost(to_zone, zone_tiles))
 
 func _input(event):
+	
 	if $Camera2D.scrolling == true:
 		return
 	if event.is_action_pressed("left_click"):
+		print("build mode is: " + str(build_mode))
+		print("zoning mode is: " + str(zoning_mode))
 		if build_mode == false and zoning_mode == false: return
 		if mouse_in_menu == true: return
 
@@ -72,12 +75,12 @@ func _input(event):
 			emit_signal("update_maps")
 		elif build_mode == true and zoning_mode == false:
 			var selected_tile = selection_box.get_selected_tile()
-			worldgen.buildings[selected_tile.y][selected_tile.x] = to_build
+			worldgen.building_map[selected_tile.y][selected_tile.x] = to_build
 			get_tree().root.get_node(
 				"Main/WorldGen/BuildingTileMap").set_cellv(
 					selected_tile,
 					to_build)
-			buildings.new_building(to_build)
+			buildings.new_building(to_build, selected_tile)
 			emit_signal("update_maps")
 	elif event.is_action_released("left_click"):
 		if build_mode == false and zoning_mode == false: return
@@ -96,9 +99,9 @@ func _input(event):
 			emit_signal("shake_catalyst")
 			if to_zone == 6 or zone_tiles.size() == 0:
 				get_tree().root.get_node(
-					"Main/Sounds/SFX/Fuzz1").play()
+					"Main/Sounds/SFX/Fuzz1").stop()
 			get_tree().root.get_node(
-				"Main/Sounds/SFX/Thud1").play()
+				"Main/Sounds/SFX/Thud1").stop()
 			zone_tiles = []
 		
 

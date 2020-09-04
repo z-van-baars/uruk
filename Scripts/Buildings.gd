@@ -14,15 +14,15 @@ var building_scene = preload("res://Scenes/Building.tscn")
 
 var building_types = [
 	"farm1",
-	"house1",
-	"lumbe camp",
+	"huts1",
+	"lumber camp",
 	"mine",
 	"smelter",
 	"temple"
 ]
 var tier_1 = {
-	"farmland": "farm1",
-	"slums": "huts1"}
+	"farmland": 0,
+	"slums": 1}
 var tier_2 = {"slums": "huts2"}
 
 func _ready():
@@ -56,12 +56,8 @@ func build_tick():
 			if random_zone_tile == null:
 				remainder_demand[zone_type] += 1
 				continue
+			new_building(tier_1[zone_type], random_zone_tile)
 
-			var new_building = building_scene.instance()
-			add_child(new_building)
-			new_building.load_building(tier_1[zone_type])
-			building_map[random_zone_tile.y][random_zone_tile.x] = tier_1[zone_type]
-			new_building.position = zone_tilemap.map_to_world(random_zone_tile)
 			zones.undeveloped_zone_tilemap.set_cellv(random_zone_tile, -1)
 
 func calculate_production():
@@ -101,9 +97,12 @@ func production_tick():
 	emit_signal("production_updated", net_production)
 	emit_signal("increment_resources", net_production)
 
-func new_building(building_id):
-	var new_building = building_types[building_id].instance()
+func new_building(building_id, building_pos):
+	var new_building = building_scene.instance()
 	add_child(new_building)
+	new_building.load_building(building_types[building_id])
+	# building_map[building_pos.y][building_pos.x] = building_types[building_id]
+	new_building.position = zone_tilemap.map_to_world(building_pos)
 
 func is_built(input_tile):
 	if building_map[input_tile.y][input_tile.x] == null:

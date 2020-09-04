@@ -522,6 +522,17 @@ wait_time = 0.1
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
+[node name="MenuDetector" type="Label" parent="UILayer"]
+margin_left = 1713.92
+margin_top = 367.0
+margin_right = 1904.92
+margin_bottom = 409.0
+custom_fonts/font = ExtResource( 11 )
+text = "Mouse in Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ResourceBar" type="ColorRect" parent="UILayer"]
 margin_right = 1920.0
 margin_bottom = 40.0
@@ -1457,6 +1468,7 @@ margin_right = 40.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
+mouse_filter = 1
 
 [node name="Sprite" type="Sprite" parent="UILayer/HarvestersMenu/VBoxContainer/LumberCampButton"]
 position = Vector2( 18.7707, 4 )
@@ -1468,6 +1480,7 @@ margin_right = 40.0
 margin_bottom = 74.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
+mouse_filter = 1
 
 [node name="Sprite" type="Sprite" parent="UILayer/HarvestersMenu/VBoxContainer/MineButton"]
 position = Vector2( 20.6908, 2.57635 )
@@ -1516,6 +1529,7 @@ margin_right = 40.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
+mouse_filter = 1
 
 [node name="Sprite" type="Sprite" parent="UILayer/BoostersMenu/VBoxContainer/TempleButton"]
 position = Vector2( 20.7707, 7 )
@@ -1564,6 +1578,7 @@ margin_right = 40.0
 margin_bottom = 35.0
 rect_min_size = Vector2( 35, 35 )
 hint_tooltip = "N / A"
+mouse_filter = 1
 
 [node name="Sprite" type="Sprite" parent="UILayer/ProcessorsMenu/VBoxContainer/SmelterButton"]
 position = Vector2( 18.7707, 4 )
@@ -1584,6 +1599,11 @@ texture = ExtResource( 57 )
 [connection signal="mouse_entered" from="UILayer/Dock" to="UILayer/Dock" method="_on_Dock_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/Dock" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/Dock" to="UILayer/Dock" method="_on_Dock_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/Dock" to="Player" method="_on_mouse_exited_menu"]
+[connection signal="mouse_entered" from="UILayer/DemandBox" to="UILayer/DemandBox" method="_on_DemandBox_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/DemandBox" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/DemandBox" to="UILayer/DemandBox" method="_on_DemandBox_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/DemandBox" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="mouse_entered" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/BuildWidget" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/BuildWidget" to="UILayer/BuildWidget" method="_on_BuildWidget_mouse_exited"]
@@ -1609,7 +1629,19 @@ texture = ExtResource( 57 )
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/ArtisanHousingButton" to="UILayer/ZoneMenu" method="_on_ArtisanHousingButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/NobleHousingButton" to="UILayer/ZoneMenu" method="_on_NobleHousingButton_pressed"]
 [connection signal="pressed" from="UILayer/ZoneMenu/VBoxContainer/DezoneButton" to="UILayer/ZoneMenu" method="_on_DezoneButton_pressed"]
+[connection signal="mouse_entered" from="UILayer/HarvestersMenu" to="UILayer/HarvestersMenu" method="_on_HarvestersMenu_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/HarvestersMenu" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/HarvestersMenu" to="UILayer/HarvestersMenu" method="_on_HarvestersMenu_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/HarvestersMenu" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="pressed" from="UILayer/HarvestersMenu/VBoxContainer/LumberCampButton" to="UILayer/HarvestersMenu" method="_on_LumberCampButton_pressed"]
 [connection signal="pressed" from="UILayer/HarvestersMenu/VBoxContainer/MineButton" to="UILayer/HarvestersMenu" method="_on_MineButton_pressed"]
+[connection signal="mouse_entered" from="UILayer/BoostersMenu" to="UILayer/BoostersMenu" method="_on_BoostersMenu_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/BoostersMenu" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/BoostersMenu" to="UILayer/BoostersMenu" method="_on_BoostersMenu_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/BoostersMenu" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="pressed" from="UILayer/BoostersMenu/VBoxContainer/TempleButton" to="UILayer/BoostersMenu" method="_on_TempleButton_pressed"]
+[connection signal="mouse_entered" from="UILayer/ProcessorsMenu" to="UILayer/ProcessorsMenu" method="_on_ProcessorsMenu_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/ProcessorsMenu" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/ProcessorsMenu" to="UILayer/ProcessorsMenu" method="_on_ProcessorsMenu_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/ProcessorsMenu" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="pressed" from="UILayer/ProcessorsMenu/VBoxContainer/SmelterButton" to="UILayer/ProcessorsMenu" method="_on_SmelterButton_pressed"]

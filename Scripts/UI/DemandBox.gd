@@ -3,6 +3,8 @@ var player
 
 var bar_reference
 var value_reference
+signal mouse_entered_menu
+signal mouse_exited_menu
 
 
 func _ready():
@@ -37,3 +39,13 @@ func update_bars(unmet_demand={}):
 
 func _on_Buildings_demand_updated(unmet_demand):
 	update_bars(unmet_demand)
+
+
+func _on_DemandBox_mouse_entered():
+	emit_signal("mouse_entered_menu")
+	get_tree().root.get_node("Main/UILayer/MenuDetector").text = "Mouse in Menu: True"
+
+
+func _on_DemandBox_mouse_exited():
+	emit_signal("mouse_exited_menu")
+	get_tree().root.get_node("Main/UILayer/MenuDetector").text = "Mouse in Menu: False"

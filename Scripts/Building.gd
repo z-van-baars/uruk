@@ -4,7 +4,11 @@ var building_type = null
 var zone_type = null
 var demand = {
 	"farm1": {"slums": 0.75},
-	"huts1": {"farmland": 2}}
+	"huts1": {"farmland": 2},
+	"lumber camp": {"slums": 0.10},
+	"mine": {"slums": 0.10},
+	"smelter": {"slums": 0.10},
+	"temple": {"slums": 0.50}}
 var tick_production = {
 	"farm1": {"grain": 1.1},
 	"huts1": {"labor": 1},

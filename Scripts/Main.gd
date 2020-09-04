@@ -2,7 +2,7 @@ extends Node
 
 
 func _ready():
-	$WorldGen.gen_new(Vector2(100, 100))
+	$WorldGen.gen_new(Vector2(200, 200))
 	
 	$WorldGen/TerrainTileMap.load_map()
 	$WorldGen/TerrainTileMap.paint_terrain()
