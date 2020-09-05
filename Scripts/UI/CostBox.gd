@@ -1,8 +1,13 @@
 extends Node2D
 
+onready var player = get_tree().root.get_node("Main/Player")
+onready var buildings = get_tree().root.get_node("Main/Buildings")
+
 func _process(delta):
-	position = get_viewport().get_mouse_position()
-	position = get_viewport().get_canvas_transform().xform_inv(position)
+	hide()
+	if player.to_build != null:
+		show()
+		set_cost_label(buildings.get_cost(player.to_build))
 
 func reset_cost_label():
 	$CostBacking.rect_size = Vector2(120, 22)
@@ -15,5 +20,5 @@ func set_cost_label(total_cost):
 	for resource in total_cost.keys():
 		$CostLabel.text += str(total_cost[resource]) + "  " + resource + "\n"
 		cost_count += 1
-	$CostBacking.rect_size = Vector2(120, 2 + cost_count * 20)
+	$CostBacking.rect_size = Vector2(100, 2 + cost_count * 20)
 	show()

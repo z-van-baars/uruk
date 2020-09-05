@@ -1,10 +1,20 @@
 extends Node2D
-var width = 0
-var height = 0
+var width
+var height
+onready var terrain_map = get_tree().root.get_node("Main/WorldGen").terrain
+onready var resource_map = get_tree().root.get_node("Main/WorldGen").resources
+onready var building_map = get_tree().root.get_node("Main/WorldGen").building_map
 
-func set_map_parameters(map_width, map_height):
-	width = map_width
-	height = map_height
+func is_blocked(tile_coordinates):
+	if terrain_map[tile_coordinates.y][tile_coordinates.x] == 2: return true
+	if resource_map[tile_coordinates.y][tile_coordinates.x] != null: return true
+	if building_map[tile_coordinates.y][tile_coordinates.x] != null: return true
+	if in_map(tile_coordinates) == false: return true
+	return false
+
+func set_map_parameters():
+	width = get_tree().root.get_node("Main/WorldGen").width
+	height = get_tree().root.get_node("Main/WorldGen").height
 
 func r_choice(some_array):
 	return some_array[randi() % some_array.size()]
@@ -71,8 +81,8 @@ func get_neighbor_tiles(tile_address: Vector2):
 func get_nearby_tiles(center_tile: Vector2, radius: float, inclusive=false):
 	var nearby_tiles: Array = []
 	# inclusive means leaving out the center tile if false, including if true
-	for y in range(radius * 2):
-		for x in range(radius * 2):
+	for y in range(radius * 2 + 1):
+		for x in range(radius * 2 + 1):
 			if not in_map(Vector2(
 				center_tile.x - radius + x,
 				center_tile.y - radius + y)):

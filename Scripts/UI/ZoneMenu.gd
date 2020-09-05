@@ -12,47 +12,23 @@ func _ready():
 	player = get_tree().root.get_node("Main/Player")
 	zones = get_tree().root.get_node("Main/Zones")
 
-func enable_zoning_mode():
-	selection_box.zoning_mode = true
-	selection_box.show()
-	player.zoning_mode = true
-	player.emit_signal("update_dock")
 
-func disable_zoning_mode():
-	selection_box.zoning_mode = false
-	selection_box.hide()
-	cost_box.hide()
-	player.zoning_mode = false
-	player.to_zone = null
-	player.emit_signal("update_dock")
-
-func activate_cost_box():
-	cost_box.set_cost_label(
-		zones.get_zone_cost(
-			player.to_zone,
-			zones.get_zone_cost(player.to_zone, [Vector2.ZERO])))
 
 func _on_FarmlandButton_pressed():
-	enable_zoning_mode()
 	player.to_zone = 0
-	selection_box.set_zone(0)
-	activate_cost_box()
 	
 
 func _on_SlumsButton_pressed():
-	enable_zoning_mode()
 	player.to_zone = 1
 	selection_box.set_zone(1)
 	activate_cost_box()
 
 func _on_ArtisanButton_pressed():
-	enable_zoning_mode()
 	player.to_zone = 2
 	selection_box.set_zone(2)
 	activate_cost_box()
 
 func _on_ArtisanHousingButton_pressed():
-	enable_zoning_mode()
 	player.to_zone = 3
 	selection_box.set_zone(3)
 	activate_cost_box()

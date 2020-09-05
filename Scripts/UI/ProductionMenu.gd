@@ -11,7 +11,7 @@ func _ready():
 
 
 func _on_SmelterButton_pressed():
-	player.to_build = 4
+	player.to_build = "smelter"
 	selection_box.activate_build_sprite()
 
 

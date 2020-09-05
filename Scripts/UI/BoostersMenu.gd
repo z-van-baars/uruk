@@ -1,16 +1,17 @@
 extends Control
-var player
-var selection_box
+onready var player = get_tree().root.get_node("Main/Player")
+onready var build_cursor = get_tree().root.get_node("Main/BuildCursor")
 signal mouse_entered_menu
 signal mouse_exited_menu
 
-func _ready():
-	player = get_tree().root.get_node("Main/Player")
-	selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
 	
 func _on_TempleButton_pressed():
-	player.to_build = 5
-	selection_box.activate_build_sprite()
+	player.to_build = "temple"
+	build_cursor.activate_build_sprite()
+
+func _on_MarketButton_pressed():
+	player.to_build = "market"
+	build_cursor.activate_build_sprite()
 
 
 func _on_BoostersMenu_mouse_entered():
@@ -21,3 +22,4 @@ func _on_BoostersMenu_mouse_entered():
 func _on_BoostersMenu_mouse_exited():
 	emit_signal("mouse_exited_menu")
 	get_tree().root.get_node("Main/UILayer/MenuDetector").text = "Mouse in Menu: False"
+

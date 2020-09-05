@@ -65,7 +65,6 @@ var tiles_by_zone = {
 	"artisan housing": [],
 	"noble housing": []}
 
-var zoned_tiles
 
 func _ready():
 	tools = get_tree().root.get_node("Main/Tools")
@@ -73,29 +72,6 @@ func _ready():
 	undeveloped_zone_tilemap = get_tree().root.get_node("Main/WorldGen/UndevelopedZoneTileMap")
 	buildings = get_tree().root.get_node("Main/Buildings")
 	resource_map  = get_tree().root.get_node("Main/WorldGen").resources
-	zoned_tiles = get_tree().root.get_node("Main/WorldGen").zoned_tiles
-
-
-
-func get_zone_cost(zone_type, zone_tiles):
-	var zone_size = zone_tiles.size()
-	var total_zone_cost = {}
-	if zone_type != null:
-		for resource_type in zone_costs[zone_types[zone_type]].keys():
-			total_zone_cost[resource_type] = zone_costs[zone_types[zone_type]][resource_type] * zone_size
-	return total_zone_cost
-
-
-func set_zone(zone_tiles, zone_id):
-	var zone_str = zone_types[zone_id]
-	for tile in zone_tiles:
-		if zoned_tiles[tile.y][tile.x] != null:
-			tiles_by_zone[zone_types[zoned_tiles[tile.y][tile.x]]].erase(tile)
-		zone_tilemap.set_cellv(tile, zone_tile_ids[zone_id])
-		undeveloped_zone_tilemap.set_cellv(tile, zone_tile_ids[zone_id])
-		if zone_str == "dezone": continue
-		tiles_by_zone[zone_str].append(tile)
-		zoned_tiles[tile.y][tile.x] = zone_id
 
 func get_unbuilt(zone_str):
 	var all_zoned = tiles_by_zone[zone_str]

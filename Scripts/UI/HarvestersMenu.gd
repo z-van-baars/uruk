@@ -10,13 +10,13 @@ func _ready():
 
 func _on_LumberCampButton_pressed():
 	print("pressed LB")
-	player.to_build = 2
+	player.to_build = "lumber camp"
 	selection_box.activate_build_sprite()
 
 
 func _on_MineButton_pressed():
 	print("pressed MB")
-	player.to_build = 3
+	player.to_build = "mine"
 	selection_box.activate_build_sprite()
 
 

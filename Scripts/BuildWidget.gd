@@ -1,19 +1,17 @@
 extends Control
 signal mouse_entered_menu
 signal mouse_exited_menu
-onready var zone_menu = get_tree().root.get_node("Main/UILayer/ZoneMenu")
 onready var boosters_menu = get_tree().root.get_node("Main/UILayer/BoostersMenu")
 onready var harvesters_menu = get_tree().root.get_node("Main/UILayer/HarvestersMenu")
 onready var processors_menu = get_tree().root.get_node("Main/UILayer/ProcessorsMenu")
 onready var selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
+onready var build_cursor = get_tree().root.get_node("Main/BuildCursor")
 onready var player = get_tree().root.get_node("Main/Player")
 
 
 func hide_all_submenus():
-	zone_menu.disable_zoning_mode()
 	disable_build_mode()
 	for submenu in [
-		zone_menu,
 		boosters_menu,
 		harvesters_menu,
 		processors_menu]:
@@ -25,13 +23,10 @@ func enable_bulldoze_mode():
 func enable_build_mode():
 	player.build_mode = true
 	selection_box.build_mode = true
-	selection_box.activate_build_sprite()
-	selection_box.show()
 
 func disable_build_mode():
 	player.build_mode = false
 	player.to_build = null
-	selection_box.hide()
 
 func _on_BuildWidget_mouse_entered():
 	emit_signal("mouse_entered_menu")
@@ -44,10 +39,7 @@ func _on_BuildWidget_mouse_exited():
 
 
 func _on_ZonesButton_pressed():
-	var reopen = !zone_menu.visible
-	hide_all_submenus()
-	if reopen == true:
-		zone_menu.show()
+	return
 
 func _on_BoostersButton_pressed():
 	var reopen = !boosters_menu.visible

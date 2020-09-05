@@ -28,9 +28,6 @@ func update():
 			get_node("ResourceBoxes/" + resource.capitalize() + "/Production").modulate = Color(0.89, 0.12, 0.33)
 		get_node("ResourceBoxes/" + resource.capitalize() + "/Production").text += str(current_production[resource])
 
-func _on_Player_update_resource_bar():
-	update()
-
 func _on_ResourceBar_mouse_entered():
 	emit_signal("mouse_entered_menu")
 	get_tree().root.get_node("Main/UILayer/MenuDetector").text = "Mouse in Menu: True"
@@ -43,4 +40,7 @@ func _on_ResourceBar_mouse_exited():
 
 func _on_Buildings_production_updated(new_production):
 	current_production = new_production
+	update()
+
+func _on_Player_update_resources():
 	update()

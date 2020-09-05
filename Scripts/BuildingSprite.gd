@@ -6,6 +6,7 @@ var sprites_by_type = {
 	"lumber camp": "res://Assets/buildings/lumbercamp.png",
 	"mine": "res://Assets/buildings/mine.png",
 	"temple": "res://Assets/buildings/temple.png",
+	"market": "res://Assets/buildings/market.png",
 	"smelter": "res://Assets/buildings/smelter.png"}
 
 
