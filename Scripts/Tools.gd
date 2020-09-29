@@ -6,10 +6,10 @@ onready var resource_map = get_tree().root.get_node("Main/WorldGen").resources
 onready var building_map = get_tree().root.get_node("Main/WorldGen").building_map
 
 func is_blocked(tile_coordinates):
+	if in_map(tile_coordinates) == false: return true
 	if terrain_map[tile_coordinates.y][tile_coordinates.x] == 2: return true
 	if resource_map[tile_coordinates.y][tile_coordinates.x] != null: return true
 	if building_map[tile_coordinates.y][tile_coordinates.x] != null: return true
-	if in_map(tile_coordinates) == false: return true
 	return false
 
 func set_map_parameters():

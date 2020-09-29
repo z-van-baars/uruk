@@ -9,7 +9,7 @@ var selected_tile = Vector2.ZERO
 
 func _ready():
 	build_sprites = {
-		"lumber camp": $BuildingSprites/Temple,
+		"lumber camp": $BuildingSprites/LumberCamp,
 		"mine": $BuildingSprites/Temple,
 		"smelter": $BuildingSprites/Temple,
 		"temple": $BuildingSprites/Temple,

@@ -1,23 +1,20 @@
 extends Control
-var player
-var selection_box
+onready var player = get_tree().root.get_node("Main/Player")
+onready var build_cursor = get_tree().root.get_node("Main/BuildCursor")
 signal mouse_entered_menu
 signal mouse_exited_menu
 
-func _ready():
-	player = get_tree().root.get_node("Main/Player")
-	selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
 
 func _on_LumberCampButton_pressed():
 	print("pressed LB")
 	player.to_build = "lumber camp"
-	selection_box.activate_build_sprite()
+	build_cursor.activate_build_sprite()
 
 
 func _on_MineButton_pressed():
 	print("pressed MB")
 	player.to_build = "mine"
-	selection_box.activate_build_sprite()
+	build_cursor.activate_build_sprite()
 
 
 func _on_HarvestersMenu_mouse_entered():
