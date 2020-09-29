@@ -25,12 +25,14 @@ var tick_production = {
 	"mine": {},
 	"smelter": {},
 	"lumber camp": {}}
+	
+"""Field to affect, radius, value, flat effect or distanced"""
 var aura_type = {
-	"farm1": ["land value", 3, -1],
+	"farm1": ["land value", 3, -1, false],
 	"house1": null,
-	"barracks": ["security", 3, 1],
-	"temple": ["land value", 3, 2],
-	"market": ["land value", 5, 1]}
+	"barracks": ["security", 3, 1, false],
+	"temple": ["land value", 3, 2, true],
+	"market": ["land value", 5, 1, true]}
 
 var tick_consumption = {
 	"farm1": {"labor": 1},
@@ -48,9 +50,7 @@ func load_building(building_name, building_position):
 	building_type = building_name
 	aura_effect = aura_type[building_name]
 	if aura_effect != null:
-		print(aura_effect)
 		aura_tiles = tools.get_nearby_tiles(coordinates, aura_effect[1], true)
-		print(aura_tiles)
 		enact_aura()
 	$Sprite.load_building_sprite(building_name)
 
@@ -65,12 +65,12 @@ func get_production():
 
 func enact_aura():
 	if aura_effect == null: return
-	print(aura_effect[0])
 	var aura_map = aura_fields[aura_effect[0]]
-	print("aura tiles: ")
 	for tile in aura_tiles:
-		print(tile)
-		aura_map[tile.y][tile.x] += aura_effect[2]
-		print(aura_map[tile.y][tile.x])
+		var tile_value = aura_effect[2]
+		if aura_effect[3] == true:
+			var d = tools.distance(tile.x, tile.y, coordinates.x, coordinates.y)
+			tile_value *= (aura_effect[1] - d / aura_effect[1] + 1)
+		aura_map[tile.y][tile.x] += tile_value
 	
 

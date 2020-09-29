@@ -3,6 +3,7 @@ onready var tools = get_tree().root.get_node("Main/Tools")
 onready var tile_map = get_tree().root.get_node("Main/WorldGen/TerrainTileMap")
 onready var selection_box = get_tree().root.get_node("Main/WorldGen/SelectionBox")
 onready var build_cursor = get_tree().root.get_node("Main/BuildCursor")
+onready var land_value_map = get_tree().root.get_node("Main/WorldGen").land_value_map
 var selected_tile
 var pos
 
@@ -19,6 +20,8 @@ func _process(delta):
 		$CursorSprites.modulate = Color.limegreen
 	selection_box.selected_tile = selected_tile
 	build_cursor.selected_tile = selected_tile
+	var land_value = land_value_map[selected_tile.y][selected_tile.x]
+	$LandValueLabel.text = str(land_value)
 	
 func get_selected_tile():
 	return selected_tile

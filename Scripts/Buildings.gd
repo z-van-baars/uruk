@@ -19,7 +19,8 @@ var building_cost = {
 	"temple": {"wood": 1},
 	"market": {"wood": 2},
 	"lumber camp": {"wood": 1,
-					"labor": 1}}
+					"labor": 1},
+	"mine": {"wood": 1}}
 
 var building_scene = preload("res://Scenes/Building.tscn")
 
