@@ -46,6 +46,7 @@ func _input(event):
 			emit_signal("shake_catalyst", 3.0)
 			emit_signal("update_resources")
 	elif event.is_action_pressed("land_value_view"):
+		get_tree().root.get_node("Main/UILayer/Cursor/LandValueLabel").visible = !get_tree().root.get_node("Main/UILayer/Cursor/LandValueLabel").visible
 		get_tree().root.get_node("Main/WorldGen/LandValueTileMap").paint_land_value()
 		get_tree().root.get_node("Main/WorldGen/LandValueTileMap").visible = !get_tree().root.get_node("Main/WorldGen/LandValueTileMap").visible
 

@@ -13,7 +13,6 @@ var cached_consumption
 var cached_production
 var cached_demand
 var cached_satisfaction
-
 var building_cost = {
 	null: {},
 	"temple": {"wood": 1},
@@ -23,6 +22,21 @@ var building_cost = {
 	"mine": {"wood": 1}}
 
 var building_scene = preload("res://Scenes/Building.tscn")
+
+func get_best_tile(building_type):
+	var map_width = get_tree().root.get_node("Main/WorldGen").width
+	var map_height = get_tree().root.get_node("Main/WorldGen").height
+	var tile_chosen = false
+	while not tile_chosen:
+		var rand_x = randi()%map_width
+		var rand_y = randi()%map_height
+		if not tools.is_blocked(Vector2(rand_x, rand_y)):
+			return Vector2(rand_x, rand_y)
+
+func build_tick():
+	for i in range(1):
+		var best_tile = get_best_tile("huts1")
+		new_building("huts1", best_tile)
 
 func recalculate_all():
 	cached_consumption = calculate_consumption()
@@ -71,11 +85,6 @@ func new_building(building_string, building_pos):
 	new_building.load_building(building_string, building_pos)
 	building_tilemap.set_new_building(building_string, building_pos)
 
-func is_built(input_tile):
-	if building_map[input_tile.y][input_tile.x] == null:
-		return false
-	return true
-			
 func calculate_unmet_demand():
 	var unmet_demand = {
 		"farmland": 0,
@@ -122,7 +131,14 @@ func _on_ProductionTimer_timeout():
 
 func _on_BuildTimer_timeout():
 	production_timer.start()
+	build_tick()
+
+
 
 
 func get_cost(building_string):
 	return building_cost[building_string]
+
+
+func _on_DemandTimer_timeout():
+	pass # Replace with function body.

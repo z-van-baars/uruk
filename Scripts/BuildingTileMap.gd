@@ -5,7 +5,7 @@ onready var tools = get_tree().root.get_node("Main/Tools")
 
 var building_tiles = {
 	"farm": [0],
-	"house": [1],
+	"huts1": [1],
 	"lumber camp": [1],
 	"mine": [1],
 	"smelter": [1],

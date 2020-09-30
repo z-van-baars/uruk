@@ -29,9 +29,9 @@ var tick_production = {
 """Field to affect, radius, value, flat effect or distanced"""
 var aura_type = {
 	"farm1": ["land value", 3, -1, false],
-	"house1": null,
+	"huts1": null,
 	"barracks": ["security", 3, 1, false],
-	"temple": ["land value", 3, 2, true],
+	"temple": ["land value", 3, 5, true],
 	"market": ["land value", 5, 1, true]}
 
 var tick_consumption = {
@@ -67,10 +67,10 @@ func enact_aura():
 	if aura_effect == null: return
 	var aura_map = aura_fields[aura_effect[0]]
 	for tile in aura_tiles:
-		var tile_value = aura_effect[2]
+		var tile_value = aura_effect[2] * 1
 		if aura_effect[3] == true:
 			var d = tools.distance(tile.x, tile.y, coordinates.x, coordinates.y)
-			tile_value *= (aura_effect[1] - d / aura_effect[1] + 1)
+			tile_value = max(tile_value - int(d), 1)
 		aura_map[tile.y][tile.x] += tile_value
 	
 

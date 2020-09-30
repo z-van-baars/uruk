@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://Assets/overlays/low.png" type="Texture" id=44]
 [ext_resource path="res://Fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=45]
 [ext_resource path="res://Scripts/UI/CostBox.gd" type="Script" id=46]
+[ext_resource path="res://Assets/zones/orange.png" type="Texture" id=47]
 [ext_resource path="res://Scripts/UI/DemandBox.gd" type="Script" id=48]
 [ext_resource path="res://Assets/sound/thud_1.ogg" type="AudioStream" id=49]
 [ext_resource path="res://Assets/sound/fuzz_1.ogg" type="AudioStream" id=50]
@@ -444,6 +445,8 @@ script = ExtResource( 29 )
 
 [node name="Buildings" type="Node2D" parent="."]
 script = ExtResource( 12 )
+
+[node name="DemandTimer" type="Timer" parent="."]
 
 [node name="ProductionTimer" type="Timer" parent="."]
 
@@ -1250,6 +1253,54 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ZonesMenu" type="Control" parent="UILayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 51 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/ZonesMenu"]
+margin_left = 53.0
+margin_top = 131.0
+margin_right = 106.0
+margin_bottom = 349.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/ZonesMenu"]
+margin_left = 49.0
+margin_top = 218.0
+margin_right = 53.0
+margin_bottom = 240.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/ZonesMenu"]
+margin_left = 60.0
+margin_top = 138.0
+margin_right = 100.0
+margin_bottom = 341.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FarmlandButton" type="Button" parent="UILayer/ZonesMenu/VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 35, 35 )
+hint_tooltip = "N / A"
+mouse_filter = 1
+
+[node name="Sprite" type="Sprite" parent="UILayer/ZonesMenu/VBoxContainer/FarmlandButton"]
+position = Vector2( 18.7707, 4 )
+texture = ExtResource( 47 )
+
 [node name="HarvestersMenu" type="Control" parent="UILayer"]
 visible = false
 margin_right = 40.0
@@ -1422,7 +1473,7 @@ position = Vector2( 18.7707, 4 )
 texture = ExtResource( 57 )
 
 [node name="Cursor" type="Node2D" parent="UILayer"]
-position = Vector2( 100, 100 )
+position = Vector2( -889.764, -459.953 )
 script = ExtResource( 24 )
 
 [node name="CursorSprites" type="Node2D" parent="UILayer/Cursor"]
@@ -1475,6 +1526,7 @@ __meta__ = {
 [connection signal="demand_updated" from="Buildings" to="UILayer/DemandBox" method="_on_Buildings_demand_updated"]
 [connection signal="increment_resources" from="Buildings" to="Player" method="_on_Buildings_increment_resources"]
 [connection signal="production_updated" from="Buildings" to="UILayer/ResourceBar" method="_on_Buildings_production_updated"]
+[connection signal="timeout" from="DemandTimer" to="Buildings" method="_on_DemandTimer_timeout"]
 [connection signal="timeout" from="ProductionTimer" to="Buildings" method="_on_ProductionTimer_timeout"]
 [connection signal="timeout" from="BuildTimer" to="Buildings" method="_on_BuildTimer_timeout"]
 [connection signal="shake_catalyst" from="Player" to="Player/Camera2D" method="_on_shake_catalyst"]
@@ -1503,6 +1555,10 @@ __meta__ = {
 [connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/ProcessorsButton" to="UILayer/BuildWidget" method="_on_ProcessorsButton_pressed"]
 [connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/BoostersButton" to="UILayer/BuildWidget" method="_on_BoostersButton_pressed"]
 [connection signal="pressed" from="UILayer/BuildWidget/ColorRect/VBoxContainer/BulldozeButton" to="UILayer/BuildWidget" method="_on_BulldozeButton_pressed"]
+[connection signal="mouse_entered" from="UILayer/ZonesMenu" to="UILayer/ZonesMenu" method="_on_ZonesMenu_mouse_entered"]
+[connection signal="mouse_entered_menu" from="UILayer/ZonesMenu" to="Player" method="_on_mouse_entered_menu"]
+[connection signal="mouse_exited" from="UILayer/ZonesMenu" to="UILayer/ZonesMenu" method="_on_ZonesMenu_mouse_exited"]
+[connection signal="mouse_exited_menu" from="UILayer/ZonesMenu" to="Player" method="_on_mouse_exited_menu"]
 [connection signal="mouse_entered" from="UILayer/HarvestersMenu" to="UILayer/HarvestersMenu" method="_on_HarvestersMenu_mouse_entered"]
 [connection signal="mouse_entered_menu" from="UILayer/HarvestersMenu" to="Player" method="_on_mouse_entered_menu"]
 [connection signal="mouse_exited" from="UILayer/HarvestersMenu" to="UILayer/HarvestersMenu" method="_on_HarvestersMenu_mouse_exited"]
