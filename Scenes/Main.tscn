@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://Scripts/WorldGen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/tiles/grass_1.png" type="Texture" id=2]
@@ -59,6 +59,7 @@
 [ext_resource path="res://Assets/buildings/smelter.png" type="Texture" id=57]
 [ext_resource path="res://Assets/resources/forest_1.png" type="Texture" id=58]
 [ext_resource path="res://Assets/buildings/houses_1.png" type="Texture" id=59]
+[ext_resource path="res://Scripts/UI/ZonesMenu.gd" type="Script" id=60]
 
 [sub_resource type="TileSet" id=1]
 0/name = "grass_1.png 0"
@@ -366,12 +367,12 @@ bg_color = Color( 0.345098, 0.94902, 0.152941, 1 )
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.643137, 0.152941, 0.94902, 1 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=11]
 outline_size = 1
 outline_color = Color( 0.262745, 0.262745, 0.262745, 1 )
 font_data = ExtResource( 45 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 size = 14
 font_data = ExtResource( 45 )
 
@@ -1061,7 +1062,7 @@ margin_left = 1728.0
 margin_top = 137.819
 margin_right = 1920.0
 margin_bottom = 157.819
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "1"
 
 [node name="SlumsValue" type="Label" parent="UILayer/DemandBox"]
@@ -1071,7 +1072,7 @@ margin_left = 1728.0
 margin_top = 186.733
 margin_right = 1920.0
 margin_bottom = 206.733
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "1"
 
 [node name="ArtisanValue" type="Label" parent="UILayer/DemandBox"]
@@ -1081,7 +1082,7 @@ margin_left = 1728.0
 margin_top = 234.828
 margin_right = 1920.0
 margin_bottom = 254.828
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "1"
 
 [node name="ArtisanHousingValue" type="Label" parent="UILayer/DemandBox"]
@@ -1091,7 +1092,7 @@ margin_left = 1728.0
 margin_top = 283.742
 margin_right = 1920.0
 margin_bottom = 303.742
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "1"
 
 [node name="NobleHousingValue" type="Label" parent="UILayer/DemandBox"]
@@ -1101,7 +1102,7 @@ margin_left = 1728.0
 margin_top = 331.018
 margin_right = 1920.0
 margin_bottom = 351.018
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "1"
 
 [node name="BuildWidget" type="Control" parent="UILayer"]
@@ -1256,7 +1257,7 @@ __meta__ = {
 [node name="ZonesMenu" type="Control" parent="UILayer"]
 margin_right = 40.0
 margin_bottom = 40.0
-script = ExtResource( 51 )
+script = ExtResource( 60 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1503,7 +1504,7 @@ margin_left = 28.0
 margin_top = 22.0
 margin_right = 82.0
 margin_bottom = 79.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "15 wood
 25 stone
 30 labor"
@@ -1516,7 +1517,7 @@ margin_left = 28.0
 margin_top = 22.0
 margin_right = 82.0
 margin_bottom = 79.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "15 wood
 25 stone
 30 labor"
